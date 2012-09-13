@@ -3,7 +3,7 @@
 #ifndef RENDERABLEOBJECT_H
 #define RENDERABLEOBJECT_H
 
-#include "types.h"
+#include "Types.h"
 
 class RenderableObject
 {

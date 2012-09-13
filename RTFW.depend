@@ -1,0 +1,53 @@
+# depslib dependency file v1.0
+1347567252 source:c:\users\gaspachelor\documents\github\rtfw\src\parallell.cpp
+	<iostream>
+	<iomanip>
+	<GL/glfw.h>
+	<stdio.h>
+	<cmath>
+	<pthread.h>
+	<windows.h>
+
+1347566559 source:c:\users\gaspachelor\documents\github\rtfw\src\objloader.cpp
+	<iostream>
+	<string>
+	<cstdio>
+	<cassert>
+	<fstream>
+	<vector>
+	"objloader.h"
+	"tokenizer.h"
+
+1347566925 c:\users\gaspachelor\documents\github\rtfw\src\objloader.h
+	<iostream>
+	<vector>
+	"Types.h"
+	"Geometry.h"
+
+1347567059 c:\users\gaspachelor\documents\github\rtfw\src\types.h
+	<gl/glew.h>
+	<gl/glfw.h>
+	<glm/glm.hpp>
+	<glm/gtc/quaternion.hpp>
+	<omp.h>
+
+1347566935 c:\users\gaspachelor\documents\github\rtfw\src\geometry.h
+	<iostream>
+	<algorithm>
+	<vector>
+	"Types.h"
+	"AABB.h"
+
+1347566896 c:\users\gaspachelor\documents\github\rtfw\src\aabb.h
+	"Types.h"
+
+1347565959 c:\users\gaspachelor\documents\github\rtfw\src\tokenizer.h
+	<vector>
+	<iostream>
+	<string>
+
+1347566979 source:c:\users\gaspachelor\documents\github\rtfw\src\aabb.cpp
+	<gl/glew.h>
+	<gl/glfw.h>
+	"aabb.h"
+
