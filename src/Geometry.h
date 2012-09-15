@@ -36,6 +36,7 @@ class Geometry
 public:
     std::vector<tVertex> vertex;
     std::vector<tFace> face;
+    std::vector<vec3> faceNormal;
     AABB aabb;
 
     void clear() { vertex.clear(); face.clear(); }
@@ -46,7 +47,9 @@ public:
         u32 i;
         f32 numFaces;
 
-        glm::vec3 n,a,b;
+        glm::vec3 a,b;
+
+        faceNormal.resize(face.size(),vec3(0));
 
         std::vector<vec3> tempNormal;
         tempNormal.resize(vertex.size(),vec3(0));
@@ -71,12 +74,11 @@ public:
             b.y = vertex[face[i].point[1]].y - vertex[face[i].point[0]].y;
             b.z = vertex[face[i].point[1]].z - vertex[face[i].point[0]].z;
 
-            n = glm::cross(b,a);//b.cross(a);
-            n = glm::normalize(n);
+            faceNormal[i] = glm::normalize(glm::cross(b,a));
 
             for(u32 u=0; u<3; ++u)
             {
-                tempNormal[face[i].point[u]] += n;
+                tempNormal[face[i].point[u]] += faceNormal[i];
                 sharedFaces[face[i].point[u]]++;
             }
         }
@@ -116,6 +118,26 @@ public:
             face.push_back(f);
         }
         return *this;
+    }
+
+    void translate(f32 x, f32 y, f32 z)
+    {
+        for(u32 i=0; i<vertex.size(); ++i)
+        {
+            vertex[i].x += x;
+            vertex[i].y += y;
+            vertex[i].z += z;
+        }
+    }
+
+    void translate(vec3 vec)
+    {
+        for(u32 i=0; i<vertex.size(); ++i)
+        {
+            vertex[i].x += vec.x;
+            vertex[i].y += vec.y;
+            vertex[i].z += vec.z;
+        }
     }
 };
 

@@ -1,52 +1,82 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_layout_file>
-	<ActiveTarget name="Debug" />
-	<File name="src\AABB.cpp" open="1" top="0" tabpos="14">
-		<Cursor position="42" topLine="0" />
+	<ActiveTarget name="Release" />
+	<File name="src\AABB.cpp" open="1" top="0" tabpos="11">
+		<Cursor position="556" topLine="30" />
 	</File>
-	<File name="src\AABB.h" open="1" top="0" tabpos="3">
-		<Cursor position="215" topLine="0" />
+	<File name="src\AABB.h" open="1" top="0" tabpos="2">
+		<Cursor position="1079" topLine="0" />
 	</File>
-	<File name="src\Camera.h" open="1" top="0" tabpos="13">
+	<File name="src\BVHNode.h" open="1" top="0" tabpos="18">
+		<Cursor position="368" topLine="0" />
+	</File>
+	<File name="src\BVHTools.h" open="1" top="0" tabpos="17">
+		<Cursor position="6465" topLine="212" />
+	</File>
+	<File name="src\Camera.h" open="1" top="0" tabpos="10">
+		<Cursor position="76" topLine="0" />
+	</File>
+	<File name="src\GeometricTools.cpp" open="1" top="0" tabpos="24">
+		<Cursor position="971" topLine="0" />
+	</File>
+	<File name="src\GeometricTools.h" open="1" top="0" tabpos="22">
+		<Cursor position="260" topLine="0" />
+	</File>
+	<File name="src\Geometry.h" open="1" top="0" tabpos="9">
+		<Cursor position="3059" topLine="99" />
+	</File>
+	<File name="src\Light.h" open="1" top="0" tabpos="8">
 		<Cursor position="0" topLine="0" />
 	</File>
-	<File name="src\Entity3D.h" open="1" top="0" tabpos="12">
-		<Cursor position="0" topLine="0" />
+	<File name="src\Material.h" open="1" top="0" tabpos="7">
+		<Cursor position="477" topLine="0" />
 	</File>
-	<File name="src\Geometry.h" open="1" top="0" tabpos="11">
-		<Cursor position="224" topLine="0" />
+	<File name="src\MonteCarloRenderer.cpp" open="0" top="0" tabpos="0">
+		<Cursor position="149" topLine="0" />
 	</File>
-	<File name="src\Light.h" open="1" top="0" tabpos="10">
-		<Cursor position="0" topLine="0" />
+	<File name="src\MonteCarloRenderer.h" open="0" top="0" tabpos="0">
+		<Cursor position="217" topLine="0" />
 	</File>
-	<File name="src\Material.h" open="1" top="0" tabpos="9">
-		<Cursor position="0" topLine="0" />
+	<File name="src\ObjLoader.cpp" open="1" top="0" tabpos="12">
+		<Cursor position="426" topLine="0" />
 	</File>
-	<File name="src\ObjLoader.cpp" open="1" top="0" tabpos="15">
-		<Cursor position="461" topLine="0" />
-	</File>
-	<File name="src\ObjLoader.h" open="1" top="0" tabpos="8">
-		<Cursor position="228" topLine="0" />
+	<File name="src\ObjLoader.h" open="1" top="0" tabpos="6">
+		<Cursor position="546" topLine="0" />
 	</File>
 	<File name="src\Ray.h" open="1" top="0" tabpos="1">
-		<Cursor position="125" topLine="0" />
+		<Cursor position="177" topLine="0" />
 	</File>
-	<File name="src\RenderDevice.h" open="1" top="0" tabpos="7">
-		<Cursor position="0" topLine="0" />
+	<File name="src\RenderDevice.h" open="1" top="0" tabpos="5">
+		<Cursor position="224" topLine="0" />
 	</File>
-	<File name="src\RenderableObject.h" open="1" top="0" tabpos="6">
-		<Cursor position="85" topLine="0" />
+	<File name="src\Scene.h" open="1" top="0" tabpos="4">
+		<Cursor position="510" topLine="0" />
 	</File>
-	<File name="src\Scene.h" open="1" top="0" tabpos="5">
-		<Cursor position="0" topLine="0" />
+	<File name="src\Shader.cpp" open="1" top="0" tabpos="16">
+		<Cursor position="178" topLine="0" />
 	</File>
-	<File name="src\Tokenizer.h" open="1" top="0" tabpos="4">
-		<Cursor position="0" topLine="0" />
+	<File name="src\Shader.h" open="1" top="0" tabpos="15">
+		<Cursor position="278" topLine="0" />
 	</File>
-	<File name="src\Types.h" open="1" top="0" tabpos="16">
+	<File name="src\SimpleRenderer.cpp" open="1" top="1" tabpos="20">
+		<Cursor position="2795" topLine="0" />
+	</File>
+	<File name="src\SimpleRenderer.h" open="1" top="0" tabpos="19">
+		<Cursor position="119" topLine="0" />
+	</File>
+	<File name="src\Texture.h" open="1" top="0" tabpos="14">
+		<Cursor position="164" topLine="0" />
+	</File>
+	<File name="src\Tokenizer.h" open="1" top="0" tabpos="3">
+		<Cursor position="719" topLine="0" />
+	</File>
+	<File name="src\Triangle.h" open="1" top="0" tabpos="23">
+		<Cursor position="160" topLine="0" />
+	</File>
+	<File name="src\Types.h" open="1" top="0" tabpos="13">
 		<Cursor position="297" topLine="0" />
 	</File>
-	<File name="src\parallell.cpp" open="1" top="1" tabpos="2">
-		<Cursor position="448" topLine="0" />
+	<File name="src\main.cpp" open="1" top="0" tabpos="21">
+		<Cursor position="1320" topLine="45" />
 	</File>
 </CodeBlocks_layout_file>

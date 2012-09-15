@@ -21,37 +21,47 @@
 				<Option type="1" />
 				<Option compiler="gcc" />
 				<Compiler>
-					<Add option="-O2" />
+					<Add option="-march=core2" />
+					<Add option="-O3" />
 				</Compiler>
-				<Linker>
-					<Add option="-s" />
-				</Linker>
 			</Target>
 		</Build>
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
 		<Linker>
+			<Add library="glew32" />
 			<Add library="glfw" />
 			<Add library="opengl32" />
+			<Add library="gomp" />
 			<Add library="pthread" />
 		</Linker>
 		<Unit filename="src\AABB.cpp" />
 		<Unit filename="src\AABB.h" />
+		<Unit filename="src\BVHNode.h" />
+		<Unit filename="src\BVHTools.h" />
 		<Unit filename="src\Camera.h" />
-		<Unit filename="src\Entity3D.h" />
+		<Unit filename="src\GeometricTools.cpp" />
+		<Unit filename="src\GeometricTools.h" />
 		<Unit filename="src\Geometry.h" />
 		<Unit filename="src\Light.h" />
 		<Unit filename="src\Material.h" />
+		<Unit filename="src\MonteCarloRenderer.cpp" />
+		<Unit filename="src\MonteCarloRenderer.h" />
 		<Unit filename="src\ObjLoader.cpp" />
 		<Unit filename="src\ObjLoader.h" />
 		<Unit filename="src\Ray.h" />
 		<Unit filename="src\RenderDevice.h" />
-		<Unit filename="src\RenderableObject.h" />
 		<Unit filename="src\Scene.h" />
+		<Unit filename="src\Shader.cpp" />
+		<Unit filename="src\Shader.h" />
+		<Unit filename="src\SimpleRenderer.cpp" />
+		<Unit filename="src\SimpleRenderer.h" />
+		<Unit filename="src\Texture.h" />
 		<Unit filename="src\Tokenizer.h" />
+		<Unit filename="src\Triangle.h" />
 		<Unit filename="src\Types.h" />
-		<Unit filename="src\parallell.cpp" />
+		<Unit filename="src\main.cpp" />
 		<Extensions>
 			<code_completion />
 			<debugger />

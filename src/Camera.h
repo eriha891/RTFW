@@ -4,7 +4,11 @@
 
 class Camera
 {
-
+public:
+    vec3 position;
+    vec3 direction;
+    vec3 up;
+    f32 planeDistance;
 };
 
 #endif

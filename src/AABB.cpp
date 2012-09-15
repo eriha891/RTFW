@@ -137,7 +137,6 @@ void AABB::draw() const
                          4,7,6,5};
 
     // activate and specify pointer to vertex array
-
     glEnableClientState(GL_VERTEX_ARRAY);
     glVertexPointer(3, GL_FLOAT, 0, vertices);
 
