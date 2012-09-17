@@ -8,7 +8,12 @@ public:
     vec3 position;
     vec3 direction;
     vec3 up;
-    f32 planeDistance;
+
+    Camera()
+    {
+        direction = vec3(0,0,-1);
+        up = vec3(0,1,0);
+    }
 };
 
 #endif

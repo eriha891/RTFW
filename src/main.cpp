@@ -11,8 +11,8 @@
 #include "Scene.h"
 #include "ObjLoader.h"
 
-#define WIDTH 256
-#define HEIGHT 256
+#define WIDTH 512
+#define HEIGHT 512
 
 typedef struct
 {
@@ -41,7 +41,6 @@ void initScene(Scene &scene)
     Camera cam;
     cam.direction = vec3(0,0,-1);
     cam.up = vec3(0,1,0);
-    cam.planeDistance = 0.1f;
 
     scene.camera.push_back(cam);
 

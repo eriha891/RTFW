@@ -1,9 +1,50 @@
+#include <glm/gtx/extented_min_max.hpp>
+
 #include "GeometricTools.h"
+
+/**
+* Found at http://gamedev.stackexchange.com/questions/18436/most-efficient-aabb-vs-ray-collision-algorithms
+*/
 
 f32 rayVsAABB(const Ray &ray, const AABB &aabb)
 {
+    // r.dir is unit direction vector of ray
+    vec3 dirfrac = 1.0f / ray.direction;
 
-    return 0.0f;
+    // lb is the corner of AABB with minimal coordinates - left bottom, rt is maximal corner
+    // r.org is origin of ray
+
+    //vec3 a = (aabb._min - ray.origin) / ray.direction;
+    //vec3 b = (aabb._max - ray.origin) / ray.direction;
+
+    float t1 = (aabb._min.x - ray.origin.x)*dirfrac.x;
+    float t2 = (aabb._max.x - ray.origin.x)*dirfrac.x;
+    float t3 = (aabb._min.y - ray.origin.y)*dirfrac.y;
+    float t4 = (aabb._max.y - ray.origin.y)*dirfrac.y;
+    float t5 = (aabb._min.z - ray.origin.z)*dirfrac.z;
+    float t6 = (aabb._max.z - ray.origin.z)*dirfrac.z;
+
+    //float tmin = glm::max(glm::min(a.x, b.x), glm::min(a.y, b.y), glm::min(a.z, b.z));
+    //float tmax = glm::min(glm::max(a.x, b.x), glm::max(a.y, b.y), glm::max(a.z, b.z));
+
+    float tmin = glm::max(glm::max(glm::min(t1, t2), glm::min(t3, t4)), glm::min(t5, t6));
+    float tmax = glm::min(glm::min(glm::max(t1, t2), glm::max(t3, t4)), glm::max(t5, t6));
+
+//    f32 tmin = glm::max(glm::min(a,b));
+
+    // if tmax < 0, ray (line) is intersecting AABB, but whole AABB is behing us
+    if (tmax < 0)
+    {
+        return MAXFLOAT;
+    }
+
+    // if tmin > tmax, ray doesn't intersect AABB
+    if (tmin > tmax)
+    {
+        return MAXFLOAT;
+    }
+
+    return tmin;
 }
 
 bool barycentricTriangleIntersect(vec3 p, const Triangle &t)

@@ -9,11 +9,61 @@
 #include "Ray.h"
 #include "GeometricTools.h"
 
+static std::vector<BVHNode> nodes;
+static std::vector<Triangle> faces;
+static std::vector<u8> materials;
+static std::vector<Material> matLib;
+
+bool rayTraceNode(const Ray &ray, u32 nodeIndex)
+{
+    if(nodes[nodeIndex].isLeaf())
+    {
+        //return true;
+        for(u32 i=nodes[nodeIndex].getIndex(); i<nodes[nodeIndex].getIndex()+nodes[nodeIndex].getSize(); ++i)
+        {
+            if(rayVsTriangle(ray,faces[i])<MAXFLOAT)
+                return true;
+        }
+    }
+    else
+    {
+        f32 leftHit = rayVsAABB(ray,nodes[nodes[nodeIndex].getLeft()].aabb);
+        f32 rightHit = rayVsAABB(ray,nodes[nodes[nodeIndex].getRight()].aabb);
+
+        if(leftHit < rightHit)
+        {
+            if(leftHit<MAXFLOAT && rayTraceNode(ray,nodes[nodeIndex].getLeft()))
+                return true;
+
+            if(rightHit<MAXFLOAT && rayTraceNode(ray,nodes[nodeIndex].getRight()))
+                return true;
+        }
+        else
+        {
+            if(rightHit<MAXFLOAT && rayTraceNode(ray,nodes[nodeIndex].getRight()))
+                return true;
+
+            if(leftHit<MAXFLOAT && rayTraceNode(ray,nodes[nodeIndex].getLeft()))
+                return true;
+        }
+    }
+    return false;
+}
+
+bool rayTraceBVH(const Ray &ray)
+{
+    if(rayVsAABB(ray,nodes[0].aabb)<MAXFLOAT)
+    {
+        return rayTraceNode(ray,0);
+    }
+    return false;
+}
+
 void SimpleRenderer::renderToArray(Scene *scene, f32 *intensityData, i32 resolutionX, i32 resolutionY)
 {
-    std::vector<BVHNode> nodes;
-    std::vector<u8> materials;
-    std::vector<Triangle> faces;
+    nodes.clear();
+    materials.clear();
+    faces.clear();
 
     // create the bvh-structure and reallign faces and materials to fit the bvh-structure.
     {
@@ -60,9 +110,9 @@ void SimpleRenderer::renderToArray(Scene *scene, f32 *intensityData, i32 resolut
     vec3 eyeUp = glm::normalize(glm::cross(cam->direction, eyeLeft));
     vec3 eyeForward = glm::normalize(cam->direction);
 
-    vec3 topLeft = eyePos + cam->planeDistance * eyeForward + cam->planeDistance * eyeUp + cam->planeDistance * eyeLeft;
-    vec3 topRight = eyePos + cam->planeDistance * eyeForward + cam->planeDistance * eyeUp - cam->planeDistance * eyeLeft;
-    vec3 bottomLeft = eyePos + cam->planeDistance * eyeForward - cam->planeDistance * eyeUp + cam->planeDistance * eyeLeft;
+    vec3 topLeft = eyePos + eyeForward + eyeUp + eyeLeft;
+    vec3 topRight = eyePos + eyeForward + eyeUp - eyeLeft;
+    vec3 bottomLeft = eyePos + eyeForward - eyeUp + eyeLeft;
 
     vec3 right = topRight-topLeft;
     vec3 up = topLeft-bottomLeft;
@@ -74,31 +124,23 @@ void SimpleRenderer::renderToArray(Scene *scene, f32 *intensityData, i32 resolut
     printf("topRight %f %f %f \n",topRight.x,topRight.y,topRight.z);
     printf("bottomLeft %f %f %f \n",bottomLeft.x,bottomLeft.y,bottomLeft.z);
 
-    // Test triangle!
-    Triangle t;
-    t.point[0] = vec3(-2,2,-10);
-    t.point[1] = vec3(-2,-2,-10);
-    t.point[2] = vec3(2,-2,-10);
-    t.normal = vec3(0,0,1);
-
     i32 x, y;
+    f32 fResX = (f32)resolutionX;
+    f32 fResY = (f32)resolutionY;
 
 //#pragma omp parallel for
     for(y=0; y<resolutionY; ++y)
     {
         for(x=0; x<resolutionX; ++x)
         {
-            ray.direction = glm::normalize(bottomLeft + ((f32)x+0.5f)/(f32)(resolutionX-1) * right + ((f32)y+0.5f)/(f32)(resolutionY-1) * up - ray.origin);
+            ray.direction = glm::normalize(bottomLeft + ((f32)x+0.5f)/fResX * right + ((f32)y+0.5f)/fResY * up - ray.origin);
 
-            for(u32 i=0; i<10000; ++i)
+            if(rayTraceBVH(ray))
             {
-                if(rayVsTriangle(ray, faces[i]) < MAXFLOAT)
-                {
-                    int pos = (resolutionX*y + x) * 3;
-                    intensityData[pos + 0] = 1;
-                    intensityData[pos + 1] = 1;
-                    intensityData[pos + 2] = 1;
-                }
+                int pos = (resolutionX*y + x) * 3;
+                intensityData[pos + 0] = 1;
+                intensityData[pos + 1] = 1;
+                intensityData[pos + 2] = 1;
             }
         }
     }
