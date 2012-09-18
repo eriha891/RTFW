@@ -2,7 +2,7 @@
 //
 // Functions to parse .obj files and store inside Geometry
 //
-// Author: Robin Skånberg
+// Author: Robin SkÃ¥nberg
 
 #pragma once
 

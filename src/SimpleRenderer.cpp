@@ -105,7 +105,7 @@ void SimpleRenderer::renderToArray(Scene *scene, f32 *intensityData, i32 resolut
 
     Camera *cam = &scene->camera[scene->activeCamera];
 
-    // assumes FOV of 45° for simplicity
+    // assumes FOV of 45Â° for simplicity
 
     vec3 eyePos = cam->position;
     vec3 eyeLeft = glm::normalize(glm::cross(cam->up, cam->direction));

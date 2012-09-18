@@ -5,7 +5,7 @@
 //  one to recognize blank space ' ' and one generic
 //  to recognize characters placed in a string, ex. " ,."
 //
-//  Author: Robin Skånberg
+//  Author: Robin SkÃ¥nberg
 
 #pragma once
 #ifndef TOKENIZER_H
