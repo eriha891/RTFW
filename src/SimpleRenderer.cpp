@@ -99,6 +99,8 @@ void SimpleRenderer::renderToArray(Scene *scene, f32 *intensityData, i32 resolut
 
         reorderVector(faces, order);
         reorderVector(materials, order);
+
+        printf("faces size = %i \n", faces.size());
     }
 
     Camera *cam = &scene->camera[scene->activeCamera];

@@ -54,7 +54,7 @@ public:
                     ++begin;
             }
         }
-        if(begin != str.length())
+        if(begin != str.length()))
             tokens.push_back(str.substr(begin));
 
         counter = 0;
