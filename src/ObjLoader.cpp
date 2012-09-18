@@ -245,7 +245,7 @@ int loadObj( std::vector<Geometry> &geomList, const std::string &filename, float
 
     std::cout<<"done reading "<<filename<<std::endl;
 
-    printf("geometric facecount = %i \n",g.face.size());
+    //printf("geometric facecount = %i \n",g.face.size());
 
     //Profiler.StopTimer("OBJ Total");
     //Profiler.Print();

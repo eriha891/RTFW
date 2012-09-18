@@ -7,7 +7,7 @@ MESSAGE =
 OPENGL=1
 
 #specify dependency list
-OBJECTS ?= parallell.o
+OBJECTS ?= src/AABB.o src/GeometricTools.o src/ObjLoader.o src/SimpleRenderer.o src/main.o
 OUTPUT ?= Program
 FLAGS ?= 
 INCPATH ?=

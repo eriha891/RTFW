@@ -1,13 +1,19 @@
 #ifndef TYPES_H
 #define TYPES_H
 
+#ifdef WIN32
 #include <gl/glew.h>
+#endif
+
 #include <gl/glfw.h>
 #include <glm/glm.hpp>
 #include <glm/gtc/quaternion.hpp>
 #include <omp.h>
 
+#ifndef MAXFLOAT
 #define MAXFLOAT 1e+37f
+#endif
+
 
 using glm::vec2;
 using glm::vec3;
