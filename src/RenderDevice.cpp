@@ -34,8 +34,14 @@ void RenderDevice::renderToArray(Scene *scene, f32 *intensityData, i32 resolutio
                     t.point[p] = vec3(scene->geometry[i].vertex[ scene->geometry[i].face[u].point[p] ].x,
                                       scene->geometry[i].vertex[ scene->geometry[i].face[u].point[p] ].y,
                                       scene->geometry[i].vertex[ scene->geometry[i].face[u].point[p] ].z);
-                    t.normal = scene->geometry[i].faceNormal[u];
+
+                    t.pointNormal[p] = vec3(scene->geometry[i].vertex[ scene->geometry[i].face[u].point[p] ].nx,
+                                            scene->geometry[i].vertex[ scene->geometry[i].face[u].point[p] ].ny,
+                                            scene->geometry[i].vertex[ scene->geometry[i].face[u].point[p] ].nz);
+
                 }
+
+                t.normal = scene->geometry[i].faceNormal[u];
 
                 faces.push_back(t);
                 materials.push_back(i);
@@ -94,7 +100,7 @@ void RenderDevice::renderToArray(Scene *scene, f32 *intensityData, i32 resolutio
         for(x=0; x<resolutionX; ++x)
         {
 			vec3 intensity;
-			
+
 			/*
 			int raysperpixel = 4;
 			for(int rayNR = 0; rayNR < raysperpixel; rayNR++) {
@@ -105,7 +111,7 @@ void RenderDevice::renderToArray(Scene *scene, f32 *intensityData, i32 resolutio
 			}
 			intensity = intensity / (f32) raysperpixel;
 			*/
-			
+
 			int raysperpixel = 2;
 			for(int rayX = 0; rayX < raysperpixel; rayX++) {
 				for(int rayY = 0; rayY < raysperpixel; rayY++) {
@@ -116,8 +122,8 @@ void RenderDevice::renderToArray(Scene *scene, f32 *intensityData, i32 resolutio
 				}
 			}
 			intensity = intensity / (f32) (raysperpixel*raysperpixel);
-			
-			
+
+
                 int pos = (resolutionX*y + x) * 3;
                 intensityData[pos + 0] = intensity.x;
                 intensityData[pos + 1] = intensity.y;

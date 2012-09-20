@@ -32,15 +32,15 @@ void *renderParallell( void *arg )
 void initScene(Scene &scene)
 {
     //loadObj(scene.geometry, "media/bunny.obj", 8.0f);
-    
+
 	/*
 	loadObj(scene.geometry, "media/golv_bakvagg_tak_lador.obj", 1.0f);
     loadObj(scene.geometry, "media/gron_vagg.obj", 1.0f);
     loadObj(scene.geometry, "media/rod_vagg.obj", 1.0f);
     loadObj(scene.geometry, "media/lampa.obj", 1.0f);
 	*/
-	
-	
+
+
     //std::cout<<"scene geoms "<<scene.geometry.size()<<std::endl;
 
     Material matGray;
@@ -52,7 +52,7 @@ void initScene(Scene &scene)
     Material matLight;
     matLight.setDiffuseColor(1.0,1.0,1.0);
     matLight.setEmission(10.0);
-	
+
 	// definition for the coolbox
 	loadObj(scene.geometry, "media/coolbox.obj", 1.0f);
     scene.material.push_back(matGray);		// floor
@@ -68,15 +68,12 @@ void initScene(Scene &scene)
     scene.material.push_back(matGray);		// box right
 
     Camera cam;
-    cam.position = vec3(0,50,140);
+    cam.position = vec3(10,60,140);
     cam.direction = vec3(0,0,-1);
     cam.up = vec3(0,1,0);
 
     scene.camera.push_back(cam);
-
     scene.activeCamera = 0;
-
-    scene.translate(0,-4,-10);
 }
 
 int main(int argc, char ** argv) {
