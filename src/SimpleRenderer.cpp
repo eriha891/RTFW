@@ -43,43 +43,29 @@ f32 rayTraceNode(const Ray &ray, u32 nodeIndex, vec3 &intensity)
     }
     else
     {
-        f32 leftHit = rayVsAABB(ray,nodes[nodes[nodeIndex].getLeft()].aabb);
-        f32 rightHit = rayVsAABB(ray,nodes[nodes[nodeIndex].getRight()].aabb);
+        f32 distance_box_left = rayVsAABB(ray,nodes[nodes[nodeIndex].getLeft()].aabb);
+        f32 distance_box_right = rayVsAABB(ray,nodes[nodes[nodeIndex].getRight()].aabb);
 
-        f32 hit;
+        f32 distance_leaf_left = MAXFLOAT;
+        f32 distance_leaf_right = MAXFLOAT;
 
-        if(leftHit < rightHit)
-        {
-            vec3 temp(1.0f);
-            hit = rayTraceNode(ray,nodes[nodeIndex].getLeft(), temp);
-            if(hit < MAXFLOAT)
-            {
-                intensity = temp;
-                return hit;
-            }
-            hit = rayTraceNode(ray,nodes[nodeIndex].getRight(), temp);
-            if(rightHit<MAXFLOAT && hit < MAXFLOAT)
-            {
-                intensity = temp;
-                return hit;
-            }
-        }
-        else if(rightHit < MAXFLOAT)
-        {
-            vec3 temp(1.0f);
-            hit = rayTraceNode(ray,nodes[nodeIndex].getRight(), temp);
-            if(hit < MAXFLOAT)
-            {
-                intensity = temp;
-                return hit;
-            }
-            hit = rayTraceNode(ray,nodes[nodeIndex].getLeft(), temp);
-            if(leftHit<MAXFLOAT && hit < MAXFLOAT)
-            {
-                intensity = temp;
-                return hit;
-            }
-        }
+        vec3 intensity_leaf_left(1.0f);
+        vec3 intensity_leaf_right(1.0f);
+		
+		if(distance_box_left < MAXFLOAT) {
+            distance_leaf_left = rayTraceNode(ray,nodes[nodeIndex].getLeft(), intensity_leaf_left);
+		}
+		if(distance_box_right < MAXFLOAT) {
+            distance_leaf_right = rayTraceNode(ray,nodes[nodeIndex].getRight(), intensity_leaf_right);
+		}
+		
+		if(distance_leaf_left < distance_leaf_right) {
+			intensity = intensity_leaf_left;
+			return distance_leaf_left;
+		} else if (distance_leaf_right < MAXFLOAT) {
+			intensity = intensity_leaf_right;
+			return distance_leaf_right;
+		}
     }
     return MAXFLOAT;
 }
@@ -137,7 +123,7 @@ void SimpleRenderer::renderToArray(Scene *scene, f32 *intensityData, i32 resolut
                 matLib.push_back(scene->material[i]);
         }
 
-        createBVH(nodes, order, aabb, 12000, 0);
+        createBVH(nodes, order, aabb, 12, 20);
 
         reorderVector(faces, order);
         reorderVector(materials, order);

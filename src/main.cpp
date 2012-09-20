@@ -32,11 +32,12 @@ void *renderParallell( void *arg )
 void initScene(Scene &scene)
 {
     //loadObj(scene.geometry, "media/bunny.obj", 8.0f);
-    loadObj(scene.geometry, "media/golv_bakvagg_tak_lador.obj", 1.0f);
+    
+	loadObj(scene.geometry, "media/golv_bakvagg_tak_lador.obj", 1.0f);
     loadObj(scene.geometry, "media/gron_vagg.obj", 1.0f);
     loadObj(scene.geometry, "media/rod_vagg.obj", 1.0f);
     loadObj(scene.geometry, "media/lampa.obj", 1.0f);
-
+	
     std::cout<<"scene geoms "<<scene.geometry.size()<<std::endl;
 
     Material matGray;
