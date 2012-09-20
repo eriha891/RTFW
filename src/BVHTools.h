@@ -4,6 +4,7 @@
 #define BVHTOOLS_H
 
 #include "Types.h"
+#include <vector>
 #include "BVHNode.h"
 
 #define NUMBINS 8
@@ -38,14 +39,7 @@ void reorderVector(std::vector<T> &object, const std::vector<u32> order)
 
 */
 
-u32 newNodePair(std::vector<BVHNode> &nodes)
-{
-    nodes.push_back(BVHNode());
-    nodes.push_back(BVHNode());
-    nodes[nodes.size()-2].setIndex(nodes.size()-2);
-    nodes[nodes.size()-1].setIndex(nodes.size()-1);
-    return nodes.size()-2;
-}
+u32 newNodePair(std::vector<BVHNode> &nodes);
 
 /**
 

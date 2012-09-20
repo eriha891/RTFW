@@ -9,7 +9,7 @@
 class SimpleRenderer : public RenderDevice
 {
 public:
-    void renderToArray(Scene *scene, f32 *intensityData, i32 resolutionX, i32 resolutionY);
+    f32 rayTraceNode(const Ray &ray, u32 nodeIndex, vec3 &intensity);
 };
 
 #endif

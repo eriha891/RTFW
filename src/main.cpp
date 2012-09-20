@@ -33,12 +33,15 @@ void initScene(Scene &scene)
 {
     //loadObj(scene.geometry, "media/bunny.obj", 8.0f);
     
+	/*
 	loadObj(scene.geometry, "media/golv_bakvagg_tak_lador.obj", 1.0f);
     loadObj(scene.geometry, "media/gron_vagg.obj", 1.0f);
     loadObj(scene.geometry, "media/rod_vagg.obj", 1.0f);
     loadObj(scene.geometry, "media/lampa.obj", 1.0f);
+	*/
 	
-    std::cout<<"scene geoms "<<scene.geometry.size()<<std::endl;
+	
+    //std::cout<<"scene geoms "<<scene.geometry.size()<<std::endl;
 
     Material matGray;
     matGray.setDiffuseColor(0.5,0.5,0.5);
@@ -49,19 +52,24 @@ void initScene(Scene &scene)
     Material matLight;
     matLight.setDiffuseColor(1.0,1.0,1.0);
     matLight.setEmission(10.0);
-
-    scene.material.push_back(matGray);
-    scene.material.push_back(matGray);
-    scene.material.push_back(matGray);
-    scene.material.push_back(matGray);
-    scene.material.push_back(matGreen);
-    scene.material.push_back(matRed);
-    scene.material.push_back(matGreen);
-    scene.material.push_back(matLight);
+	
+	// definition for the coolbox
+	loadObj(scene.geometry, "media/coolbox.obj", 1.0f);
+    scene.material.push_back(matGray);		// floor
+    scene.material.push_back(matGray);		// back wall
+    scene.material.push_back(matGreen);		// left wall
+    scene.material.push_back(matRed);		// right wall
+    scene.material.push_back(matGray);		// cieling
+    scene.material.push_back(matLight);		// light box
+    scene.material.push_back(matGray);		// torus
+    scene.material.push_back(matGray);		// cylinder
+    scene.material.push_back(matGray);		// teapot
+    scene.material.push_back(matGray);		// box left
+    scene.material.push_back(matGray);		// box right
 
     Camera cam;
-    cam.position = vec3(-50,20,-10);
-    cam.direction = vec3(1,0,0);
+    cam.position = vec3(0,50,140);
+    cam.direction = vec3(0,0,-1);
     cam.up = vec3(0,1,0);
 
     scene.camera.push_back(cam);

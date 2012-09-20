@@ -7,7 +7,7 @@ MESSAGE =
 OPENGL=1
 
 #specify dependency list
-OBJECTS ?= src/AABB.o src/GeometricTools.o src/ObjLoader.o src/SimpleRenderer.o src/main.o
+OBJECTS ?= src/AABB.o src/BVHTools.o src/GeometricTools.o src/ObjLoader.o src/SimpleRenderer.o src/main.o src/Tokenizer.o src/RenderDevice.o
 OUTPUT ?= Program
 FLAGS ?= -O3
 INCPATH ?=
