@@ -60,6 +60,7 @@ f32 rayTraceNode(const Ray &ray, u32 nodeIndex, vec3 &intensity)
 		}
 		
 		if(distance_leaf_left < distance_leaf_right) {
+			
 			intensity = intensity_leaf_left;
 			return distance_leaf_left;
 		} else if (distance_leaf_right < MAXFLOAT) {
@@ -128,7 +129,7 @@ void SimpleRenderer::renderToArray(Scene *scene, f32 *intensityData, i32 resolut
         reorderVector(faces, order);
         reorderVector(materials, order);
 
-        printf("faces size = %i \n", faces.size());
+        printf("faces size = %i \n", (int)faces.size());
     }
 
     Camera *cam = &scene->camera[scene->activeCamera];
@@ -163,11 +164,31 @@ void SimpleRenderer::renderToArray(Scene *scene, f32 *intensityData, i32 resolut
     {
         for(x=0; x<resolutionX; ++x)
         {
-            ray.direction = glm::normalize(bottomLeft + ((f32)x+0.5f)/fResX * right + ((f32)y+0.5f)/fResY * up - ray.origin);
-
-            //if(rayTraceBVH(ray))
-            //{
-            vec3 intensity = rayTraceBVH(ray);
+			vec3 intensity;
+			
+			/*
+			int raysperpixel = 4;
+			for(int rayNR = 0; rayNR < raysperpixel; rayNR++) {
+				float randx = glm::compRand1(0.0f, 1.0f);
+				float randy = glm::compRand1(0.0f, 1.0f);
+	            ray.direction = glm::normalize(bottomLeft + ((f32)x+randx)/fResX * right + ((f32)y+randy)/fResY * up - ray.origin);
+				intensity += rayTraceBVH(ray);
+			}
+			intensity = intensity / (f32) raysperpixel;
+			*/
+			
+			int raysperpixel = 2;
+			for(int rayX = 0; rayX < raysperpixel; rayX++) {
+				for(int rayY = 0; rayY < raysperpixel; rayY++) {
+					f32 stepx = (f32)rayX / (f32)raysperpixel;
+					f32 stepy = (f32)rayY / (f32)raysperpixel;
+		            ray.direction = glm::normalize(bottomLeft + ((f32)x+stepx)/fResX * right + ((f32)y+stepy)/fResY * up - ray.origin);
+					intensity += rayTraceBVH(ray);
+				}
+			}
+			intensity = intensity / (f32) (raysperpixel*raysperpixel);
+			
+			
                 int pos = (resolutionX*y + x) * 3;
                 intensityData[pos + 0] = intensity.x;
                 intensityData[pos + 1] = intensity.y;

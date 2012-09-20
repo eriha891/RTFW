@@ -120,7 +120,7 @@ int main(int argc, char ** argv) {
 	delete pixels;
 
 	glfwTerminate();
-    pthread_exit(NULL);
+    //pthread_exit(NULL);
 
 	return 0;
 }

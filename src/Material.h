@@ -25,7 +25,7 @@ public:
     {
         opacity = 1.0f;
         specularIntensity = 10.0f;
-        emission = 0.1f;
+        emission = 0.0f;
         refractiveIndex = 1.0f;
 
         for(int i=0; i<8; ++i)

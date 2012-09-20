@@ -8,6 +8,8 @@
 #include <gl/glfw.h>
 #include <glm/glm.hpp>
 #include <glm/gtc/quaternion.hpp>
+#include <glm/gtc/random.hpp>
+#include <glm/gtx/random.hpp>
 #include <omp.h>
 
 #ifndef MAXFLOAT
@@ -31,6 +33,7 @@ using glm::mat3;
 using glm::mat4;
 
 using glm::quat;
+
 
 typedef unsigned char 	        u8;
 typedef unsigned short 	        u16;

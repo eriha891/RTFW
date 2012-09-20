@@ -9,7 +9,7 @@ OPENGL=1
 #specify dependency list
 OBJECTS ?= src/AABB.o src/GeometricTools.o src/ObjLoader.o src/SimpleRenderer.o src/main.o
 OUTPUT ?= Program
-FLAGS ?= 
+FLAGS ?= -O3
 INCPATH ?=
 
 # check if argument OPENGL=1 is set, reguires glfw to be properly installed

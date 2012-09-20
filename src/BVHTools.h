@@ -250,7 +250,7 @@ static void createBVH(std::vector<BVHNode> &node, std::vector<T> &object, std::v
 
     subDivide(node, object, aabb, 0, 0);
 
-    printf("BVH built, nodes: %d \n",node.size());
+    printf("BVH built, nodes: %d \n",(int)node.size());
 }
 
 
