@@ -32,6 +32,8 @@ public:
             texture[i] = NULL;
     }
 
+    inline const vec3 &getDiffuseColor() { return diffuseColor; }
+
     void setAmbientColor(f32 r, f32 g, f32 b) { ambientColor = glm::clamp(vec3(r,g,b),0.0f,1.0f); }
     void setDiffuseColor(f32 r, f32 g, f32 b) { diffuseColor = glm::clamp(vec3(r,g,b),0.0f,1.0f); }
     void setSpecularColor(f32 r, f32 g, f32 b) { specularColor = glm::clamp(vec3(r,g,b),0.0f,1.0f); }

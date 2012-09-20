@@ -31,11 +31,13 @@ void *renderParallell( void *arg )
 
 void initScene(Scene &scene)
 {
-    //loadObj(scene.geometry, "media/bunny.obj", 1.0f);
+    //loadObj(scene.geometry, "media/bunny.obj", 8.0f);
     loadObj(scene.geometry, "media/golv_bakvagg_tak_lador.obj", 1.0f);
     loadObj(scene.geometry, "media/gron_vagg.obj", 1.0f);
     loadObj(scene.geometry, "media/rod_vagg.obj", 1.0f);
     loadObj(scene.geometry, "media/lampa.obj", 1.0f);
+
+    std::cout<<"scene geoms "<<scene.geometry.size()<<std::endl;
 
     Material matGray;
     matGray.setDiffuseColor(0.5,0.5,0.5);
@@ -45,14 +47,20 @@ void initScene(Scene &scene)
     matRed.setDiffuseColor(1.0,0.0,0.0);
     Material matLight;
     matLight.setDiffuseColor(1.0,1.0,1.0);
+    matLight.setEmission(10.0);
 
+    scene.material.push_back(matGray);
+    scene.material.push_back(matGray);
+    scene.material.push_back(matGray);
     scene.material.push_back(matGray);
     scene.material.push_back(matGreen);
     scene.material.push_back(matRed);
+    scene.material.push_back(matGreen);
     scene.material.push_back(matLight);
 
     Camera cam;
-    cam.direction = vec3(0,0,-1);
+    cam.position = vec3(-50,20,-10);
+    cam.direction = vec3(1,0,0);
     cam.up = vec3(0,1,0);
 
     scene.camera.push_back(cam);

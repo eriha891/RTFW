@@ -14,55 +14,93 @@ static std::vector<Triangle> faces;
 static std::vector<u8> materials;
 static std::vector<Material> matLib;
 
-bool rayTraceNode(const Ray &ray, u32 nodeIndex)
+f32 rayTraceNode(const Ray &ray, u32 nodeIndex, vec3 &intensity)
 {
+    //intensity = vec3(1.0,0.0,0.0);
+    //return true;
     if(nodes[nodeIndex].isLeaf())
     {
         //return true;
-        for(u32 i=nodes[nodeIndex].getIndex(); i<nodes[nodeIndex].getIndex()+nodes[nodeIndex].getSize(); ++i)
+        f32 hit;
+        f32 closestHit = MAXFLOAT;
+        u32 triangleIndex;
+
+        for(u32 i=nodes[nodeIndex].getIndex(); i < nodes[nodeIndex].getIndex()+nodes[nodeIndex].getSize(); ++i)
         {
-            if(rayVsTriangle(ray,faces[i])<MAXFLOAT)
-                return true;
+            hit = rayVsTriangle(ray,faces[i]);
+            if(hit < closestHit)
+            {
+                closestHit = hit;
+                triangleIndex = i;
+            }
         }
+        if(closestHit < MAXFLOAT)
+        {
+            intensity = glm::abs(glm::dot(-ray.direction,faces[triangleIndex].normal))*matLib[materials[triangleIndex]].getDiffuseColor();
+            return closestHit;
+        }
+        //return false;
     }
     else
     {
         f32 leftHit = rayVsAABB(ray,nodes[nodes[nodeIndex].getLeft()].aabb);
         f32 rightHit = rayVsAABB(ray,nodes[nodes[nodeIndex].getRight()].aabb);
 
+        f32 hit;
+
         if(leftHit < rightHit)
         {
-            if(leftHit<MAXFLOAT && rayTraceNode(ray,nodes[nodeIndex].getLeft()))
-                return true;
-
-            if(rightHit<MAXFLOAT && rayTraceNode(ray,nodes[nodeIndex].getRight()))
-                return true;
+            vec3 temp(1.0f);
+            hit = rayTraceNode(ray,nodes[nodeIndex].getLeft(), temp);
+            if(hit < MAXFLOAT)
+            {
+                intensity = temp;
+                return hit;
+            }
+            hit = rayTraceNode(ray,nodes[nodeIndex].getRight(), temp);
+            if(rightHit<MAXFLOAT && hit < MAXFLOAT)
+            {
+                intensity = temp;
+                return hit;
+            }
         }
-        else
+        else if(rightHit < MAXFLOAT)
         {
-            if(rightHit<MAXFLOAT && rayTraceNode(ray,nodes[nodeIndex].getRight()))
-                return true;
-
-            if(leftHit<MAXFLOAT && rayTraceNode(ray,nodes[nodeIndex].getLeft()))
-                return true;
+            vec3 temp(1.0f);
+            hit = rayTraceNode(ray,nodes[nodeIndex].getRight(), temp);
+            if(hit < MAXFLOAT)
+            {
+                intensity = temp;
+                return hit;
+            }
+            hit = rayTraceNode(ray,nodes[nodeIndex].getLeft(), temp);
+            if(leftHit<MAXFLOAT && hit < MAXFLOAT)
+            {
+                intensity = temp;
+                return hit;
+            }
         }
     }
-    return false;
+    return MAXFLOAT;
 }
 
-bool rayTraceBVH(const Ray &ray)
+vec3 rayTraceBVH(const Ray &ray)
 {
+    vec3 intensity;
+
     if(rayVsAABB(ray,nodes[0].aabb)<MAXFLOAT)
     {
-        return rayTraceNode(ray,0);
+        rayTraceNode(ray,0,intensity);
     }
-    return false;
+
+    return intensity;
 }
 
 void SimpleRenderer::renderToArray(Scene *scene, f32 *intensityData, i32 resolutionX, i32 resolutionY)
 {
     nodes.clear();
     materials.clear();
+    matLib.clear();
     faces.clear();
 
     // create the bvh-structure and reallign faces and materials to fit the bvh-structure.
@@ -93,9 +131,13 @@ void SimpleRenderer::renderToArray(Scene *scene, f32 *intensityData, i32 resolut
 
                 order.push_back(order.size());
             }
+            if(i >= scene->material.size())
+                matLib.push_back(Material());
+            else
+                matLib.push_back(scene->material[i]);
         }
 
-        createBVH(nodes, order, aabb, 12, 30);
+        createBVH(nodes, order, aabb, 12000, 0);
 
         reorderVector(faces, order);
         reorderVector(materials, order);
@@ -137,13 +179,14 @@ void SimpleRenderer::renderToArray(Scene *scene, f32 *intensityData, i32 resolut
         {
             ray.direction = glm::normalize(bottomLeft + ((f32)x+0.5f)/fResX * right + ((f32)y+0.5f)/fResY * up - ray.origin);
 
-            if(rayTraceBVH(ray))
-            {
+            //if(rayTraceBVH(ray))
+            //{
+            vec3 intensity = rayTraceBVH(ray);
                 int pos = (resolutionX*y + x) * 3;
-                intensityData[pos + 0] = 1;
-                intensityData[pos + 1] = 1;
-                intensityData[pos + 2] = 1;
-            }
+                intensityData[pos + 0] = intensity.x;
+                intensityData[pos + 1] = intensity.y;
+                intensityData[pos + 2] = intensity.z;
+            //}
         }
     }
 

@@ -8,7 +8,7 @@
 	<pthread.h>
 	<windows.h>
 
-1347958610 source:c:\users\gaspachelor\documents\github\rtfw\src\objloader.cpp
+1348084152 source:c:\users\gaspachelor\documents\github\rtfw\src\objloader.cpp
 	<iostream>
 	<string>
 	<cstdio>
@@ -18,63 +18,63 @@
 	"objloader.h"
 	"tokenizer.h"
 
-1347566925 c:\users\gaspachelor\documents\github\rtfw\src\objloader.h
+1348084152 c:\users\gaspachelor\documents\github\rtfw\src\objloader.h
 	<iostream>
 	<vector>
 	"Types.h"
 	"Geometry.h"
 
-1347567059 c:\users\gaspachelor\documents\github\rtfw\src\types.h
+1348084152 c:\users\gaspachelor\documents\github\rtfw\src\types.h
 	<gl/glew.h>
 	<gl/glfw.h>
 	<glm/glm.hpp>
 	<glm/gtc/quaternion.hpp>
 	<omp.h>
 
-1347724127 c:\users\gaspachelor\documents\github\rtfw\src\geometry.h
+1348084152 c:\users\gaspachelor\documents\github\rtfw\src\geometry.h
 	<iostream>
 	<algorithm>
 	<vector>
 	"Types.h"
 	"AABB.h"
 
-1347566896 c:\users\gaspachelor\documents\github\rtfw\src\aabb.h
+1348084152 c:\users\gaspachelor\documents\github\rtfw\src\aabb.h
 	"Types.h"
 
-1347959228 c:\users\gaspachelor\documents\github\rtfw\src\tokenizer.h
+1348084152 c:\users\gaspachelor\documents\github\rtfw\src\tokenizer.h
 	<vector>
 	<iostream>
 	<string>
 
-1347715012 source:c:\users\gaspachelor\documents\github\rtfw\src\aabb.cpp
+1348084152 source:c:\users\gaspachelor\documents\github\rtfw\src\aabb.cpp
 	<gl/glew.h>
 	<gl/glfw.h>
 	"aabb.h"
 
-1347717046 source:c:\users\gaspachelor\documents\github\rtfw\src\shader.cpp
+1348084152 source:c:\users\gaspachelor\documents\github\rtfw\src\shader.cpp
 	<fstream>
 	<cstdio>
 	<string>
 	"Shader.h"
 
-1347716870 c:\users\gaspachelor\documents\github\rtfw\src\shader.h
+1348084152 c:\users\gaspachelor\documents\github\rtfw\src\shader.h
 	<iostream>
 	<map>
 	<GL/glew.h>
 	<GL/glfw.h>
 
-1347722043 source:c:\users\gaspachelor\documents\github\rtfw\src\montecarlorenderer.cpp
+1348084152 source:c:\users\gaspachelor\documents\github\rtfw\src\montecarlorenderer.cpp
 	"MonteCarloRenderer.h"
 
-1347722031 c:\users\gaspachelor\documents\github\rtfw\src\montecarlorenderer.h
+1348084152 c:\users\gaspachelor\documents\github\rtfw\src\montecarlorenderer.h
 	"Types.h"
 	"RenderDevice.h"
 
-1347742020 c:\users\gaspachelor\documents\github\rtfw\src\renderdevice.h
+1348084152 c:\users\gaspachelor\documents\github\rtfw\src\renderdevice.h
 	<vector>
 	"Scene.h"
 
-1347723603 c:\users\gaspachelor\documents\github\rtfw\src\scene.h
+1348084152 c:\users\gaspachelor\documents\github\rtfw\src\scene.h
 	<vector>
 	"Types.h"
 	"Geometry.h"
@@ -82,18 +82,18 @@
 	"Camera.h"
 	"Light.h"
 
-1347741714 c:\users\gaspachelor\documents\github\rtfw\src\material.h
+1348085949 c:\users\gaspachelor\documents\github\rtfw\src\material.h
 	"Types.h"
 	"Texture.h"
 
-1347715473 c:\users\gaspachelor\documents\github\rtfw\src\texture.h
+1348084152 c:\users\gaspachelor\documents\github\rtfw\src\texture.h
 	"Types.h"
 
-1347784283 c:\users\gaspachelor\documents\github\rtfw\src\camera.h
+1348084152 c:\users\gaspachelor\documents\github\rtfw\src\camera.h
 
-1347302642 c:\users\gaspachelor\documents\github\rtfw\src\light.h
+1348084152 c:\users\gaspachelor\documents\github\rtfw\src\light.h
 
-1347957945 source:c:\users\gaspachelor\documents\github\rtfw\src\simplerenderer.cpp
+1348147803 source:c:\users\gaspachelor\documents\github\rtfw\src\simplerenderer.cpp
 	<vector>
 	<iostream>
 	<omp.h>
@@ -104,11 +104,11 @@
 	"Ray.h"
 	"GeometricTools.h"
 
-1347742003 c:\users\gaspachelor\documents\github\rtfw\src\simplerenderer.h
+1348084152 c:\users\gaspachelor\documents\github\rtfw\src\simplerenderer.h
 	"Types.h"
 	"RenderDevice.h"
 
-1347784395 source:c:\users\gaspachelor\documents\github\rtfw\src\main.cpp
+1348148041 source:c:\users\gaspachelor\documents\github\rtfw\src\main.cpp
 	<GL/glew.h>
 	<GL/glfw.h>
 	<cstdio>
@@ -118,27 +118,27 @@
 	"Scene.h"
 	"ObjLoader.h"
 
-1347735223 c:\users\gaspachelor\documents\github\rtfw\src\bvhtools.h
+1348084152 c:\users\gaspachelor\documents\github\rtfw\src\bvhtools.h
 	"Types.h"
 	"BVHNode.h"
 
-1347718964 c:\users\gaspachelor\documents\github\rtfw\src\bvhnode.h
+1348084152 c:\users\gaspachelor\documents\github\rtfw\src\bvhnode.h
 	"Types.h"
 	"AABB.h"
 
-1347785142 c:\users\gaspachelor\documents\github\rtfw\src\triangle.h
+1348084152 c:\users\gaspachelor\documents\github\rtfw\src\triangle.h
 	"Types.h"
 
-1347764651 source:c:\users\gaspachelor\documents\github\rtfw\src\geometrictools.cpp
+1348084152 source:c:\users\gaspachelor\documents\github\rtfw\src\geometrictools.cpp
 	<glm/gtx/extented_min_max.hpp>
 	"GeometricTools.h"
 
-1347738142 c:\users\gaspachelor\documents\github\rtfw\src\geometrictools.h
+1348084152 c:\users\gaspachelor\documents\github\rtfw\src\geometrictools.h
 	"Types.h"
 	"AABB.h"
 	"Ray.h"
 	"Triangle.h"
 
-1347737852 c:\users\gaspachelor\documents\github\rtfw\src\ray.h
+1348084152 c:\users\gaspachelor\documents\github\rtfw\src\ray.h
 	"Types.h"
 
