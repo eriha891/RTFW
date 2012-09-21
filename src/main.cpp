@@ -5,7 +5,6 @@
 #include <GL/glfw.h>
 #include <cstdio>
 #include <pthread.h>
-#include <omp.h>
 #include <vector>
 
 #include "SimpleRenderer.h"
@@ -84,7 +83,23 @@ void initScene(Scene &scene)
 }
 
 int main(int argc, char ** argv) {
-
+	
+	#define OMP_NUM_THREADS 4;
+	omp_set_num_threads (4);
+		int nthreads = 4, tid;
+		  int T=2;  
+	  #pragma omp parallel private(nthreads, tid) num_threads(T)
+	    {
+	      tid = omp_get_thread_num();
+	      printf("Hello World from thread = %d\n", tid);
+    
+	      if (tid == 0) {
+	        nthreads = omp_get_num_threads();
+	        printf("Number of threads = %d\n", nthreads);
+	      }
+	    }
+	
+	
 	glfwInit();
 
 	// GLFW_WINDOW

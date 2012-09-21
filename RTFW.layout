@@ -35,7 +35,7 @@
 		<Cursor position="153" topLine="0" />
 	</File>
 	<File name="src\MonteCarloRenderer.cpp" open="1" top="1" tabpos="8">
-		<Cursor position="933" topLine="16" />
+		<Cursor position="1154" topLine="11" />
 	</File>
 	<File name="src\MonteCarloRenderer.h" open="1" top="0" tabpos="5">
 		<Cursor position="186" topLine="0" />
@@ -47,10 +47,10 @@
 		<Cursor position="533" topLine="0" />
 	</File>
 	<File name="src\Ray.h" open="1" top="0" tabpos="9">
-		<Cursor position="111" topLine="0" />
+		<Cursor position="191" topLine="5" />
 	</File>
 	<File name="src\RenderDevice.cpp" open="1" top="0" tabpos="6">
-		<Cursor position="1387" topLine="126" />
+		<Cursor position="238" topLine="6" />
 	</File>
 	<File name="src\RenderDevice.h" open="1" top="0" tabpos="1">
 		<Cursor position="484" topLine="5" />
@@ -83,6 +83,6 @@
 		<Cursor position="224" topLine="0" />
 	</File>
 	<File name="src\main.cpp" open="1" top="0" tabpos="4">
-		<Cursor position="2816" topLine="97" />
+		<Cursor position="234" topLine="0" />
 	</File>
 </CodeBlocks_layout_file>
