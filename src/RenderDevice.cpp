@@ -110,6 +110,9 @@ void RenderDevice::renderToArray(Scene *scene, f32 *intensityData, i32 resolutio
     vec3 eyeLeft = glm::normalize(glm::cross(cam->up, cam->direction));
     vec3 eyeUp = glm::normalize(glm::cross(cam->direction, eyeLeft));
     vec3 eyeForward = glm::normalize(cam->direction);
+	
+	eyeLeft = eyeLeft* 0.5f;
+	eyeUp = eyeUp* 0.5f;
 
     vec3 topLeft = eyePos + eyeForward + eyeUp + eyeLeft;
     vec3 topRight = eyePos + eyeForward + eyeUp - eyeLeft;
@@ -118,24 +121,28 @@ void RenderDevice::renderToArray(Scene *scene, f32 *intensityData, i32 resolutio
     vec3 right = topRight-topLeft;
     vec3 up = topLeft-bottomLeft;
 
-    Ray ray;
-    ray.origin = eyePos;
+    //Ray ray;
+    //ray.origin = eyePos;
 
     printf("topLeft %f %f %f \n",topLeft.x,topLeft.y,topLeft.z);
     printf("topRight %f %f %f \n",topRight.x,topRight.y,topRight.z);
     printf("bottomLeft %f %f %f \n",bottomLeft.x,bottomLeft.y,bottomLeft.z);
-
-    i32 x, y;
+	
     f32 fResX = (f32)resolutionX;
     f32 fResY = (f32)resolutionY;
 
-//#pragma omp parallel for
-    for(y=0; y<resolutionY; ++y)
+	int raysperpixel = 2;
+	
+	
+	for(i32 y=0; y<resolutionY; ++y)
     {
-        for(x=0; x<resolutionX; ++x)
+		//#pragma omp parallell for
+        //#pragma omp parallell num_threads(4)
+		for(i32 x=0; x<resolutionX; ++x)
         {
+		    Ray ray;
+		    ray.origin = eyePos;
 			vec3 intensity;
-
 			/*
 			int raysperpixel = 4;
 			for(int rayNR = 0; rayNR < raysperpixel; rayNR++) {
@@ -146,8 +153,7 @@ void RenderDevice::renderToArray(Scene *scene, f32 *intensityData, i32 resolutio
 			}
 			intensity = intensity / (f32) raysperpixel;
 			*/
-
-			int raysperpixel = 1;
+			
 			for(int rayX = 0; rayX < raysperpixel; rayX++) {
 				for(int rayY = 0; rayY < raysperpixel; rayY++) {
 					f32 stepx = (f32)rayX / (f32)raysperpixel;
@@ -158,11 +164,12 @@ void RenderDevice::renderToArray(Scene *scene, f32 *intensityData, i32 resolutio
 			}
 			intensity = intensity / (f32) (raysperpixel*raysperpixel);
 
-
+			
             int pos = (resolutionX*y + x) * 3;
             intensityData[pos + 0] = intensity.x;
             intensityData[pos + 1] = intensity.y;
             intensityData[pos + 2] = intensity.z;
+			
         }
     }
 

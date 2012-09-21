@@ -6,6 +6,7 @@
 #include <cstdio>
 #include <pthread.h>
 #include <vector>
+#include <ctime>
 
 #include "SimpleRenderer.h"
 #include "MonteCarloRenderer.h"
@@ -24,9 +25,12 @@ typedef struct
 
 void *renderParallell( void *arg )
 {
+	clock_t start = clock();
     RenderTarget *rt = (RenderTarget*)arg;
     rt->device->renderToArray(rt->scene, rt->pixels, WIDTH, HEIGHT);
-
+	clock_t end = clock();
+	double cpu_time = static_cast<double>( end - start ) / CLOCKS_PER_SEC;
+	printf("Time to render: %f seconds\n", cpu_time);
     return NULL;
 }
 
@@ -74,7 +78,7 @@ void initScene(Scene &scene)
     scene.material.push_back(matGray);
 
     Camera cam;
-    cam.position = vec3(10,60,140);
+    cam.position = vec3(10,60,190);
     cam.direction = vec3(0,0,-1);
     cam.up = vec3(0,1,0);
 
@@ -84,21 +88,29 @@ void initScene(Scene &scene)
 
 int main(int argc, char ** argv) {
 	
-	#define OMP_NUM_THREADS 4;
-	omp_set_num_threads (4);
-		int nthreads = 4, tid;
-		  int T=2;  
-	  #pragma omp parallel private(nthreads, tid) num_threads(T)
-	    {
-	      tid = omp_get_thread_num();
-	      printf("Hello World from thread = %d\n", tid);
-    
-	      if (tid == 0) {
-	        nthreads = omp_get_num_threads();
-	        printf("Number of threads = %d\n", nthreads);
-	      }
-	    }
 	
+	/*
+    int th_id, nthreads;
+    #pragma omp parallel private(th_id) shared(nthreads)
+    {
+      th_id = omp_get_thread_num();
+      #pragma omp critical
+      {
+		  //cout << "Hello World from thread " << th_id << '\n';
+		  printf("Hello World from thread %i\n", th_id);
+			
+	}
+	#pragma omp barrier
+ 
+      #pragma omp master
+      {
+        nthreads = omp_get_num_threads();
+        //cout << "There are " << nthreads << " threads" << '\n';
+		printf("There are %i threads\n", nthreads);
+			
+      }
+    }
+	*/
 	
 	glfwInit();
 
@@ -147,7 +159,6 @@ int main(int argc, char ** argv) {
 	delete pixels;
 
 	glfwTerminate();
-    //pthread_exit(NULL);
 
 	return 0;
 }
