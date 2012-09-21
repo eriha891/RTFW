@@ -39,11 +39,13 @@
 		<Unit filename="src\AABB.cpp" />
 		<Unit filename="src\AABB.h" />
 		<Unit filename="src\BVHNode.h" />
+		<Unit filename="src\BVHTools.cpp" />
 		<Unit filename="src\BVHTools.h" />
 		<Unit filename="src\Camera.h" />
 		<Unit filename="src\GeometricTools.cpp" />
 		<Unit filename="src\GeometricTools.h" />
 		<Unit filename="src\Geometry.h" />
+		<Unit filename="src\Hit.h" />
 		<Unit filename="src\Light.h" />
 		<Unit filename="src\Material.h" />
 		<Unit filename="src\MonteCarloRenderer.cpp" />
@@ -51,6 +53,7 @@
 		<Unit filename="src\ObjLoader.cpp" />
 		<Unit filename="src\ObjLoader.h" />
 		<Unit filename="src\Ray.h" />
+		<Unit filename="src\RenderDevice.cpp" />
 		<Unit filename="src\RenderDevice.h" />
 		<Unit filename="src\Scene.h" />
 		<Unit filename="src\Shader.cpp" />
@@ -58,6 +61,7 @@
 		<Unit filename="src\SimpleRenderer.cpp" />
 		<Unit filename="src\SimpleRenderer.h" />
 		<Unit filename="src\Texture.h" />
+		<Unit filename="src\Tokenizer.cpp" />
 		<Unit filename="src\Tokenizer.h" />
 		<Unit filename="src\Triangle.h" />
 		<Unit filename="src\Types.h" />

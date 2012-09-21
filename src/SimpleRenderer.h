@@ -8,8 +8,9 @@
 
 class SimpleRenderer : public RenderDevice
 {
-public:
-    f32 rayTraceNode(const Ray &ray, u32 nodeIndex, vec3 &intensity);
+private:
+    //Hit rayTraceNode(const Ray &ray, u32 nodeIndex, vec3 &intensity);
+    vec3 rayTraceBVH(const Ray &ray);
 };
 
 #endif

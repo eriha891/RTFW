@@ -8,6 +8,7 @@
 #include <vector>
 
 #include "SimpleRenderer.h"
+#include "MonteCarloRenderer.h"
 #include "Scene.h"
 #include "ObjLoader.h"
 
@@ -67,6 +68,11 @@ void initScene(Scene &scene)
     scene.material.push_back(matGray);		// box left
     scene.material.push_back(matGray);		// box right
 
+    // stanford bunny
+    loadObj(scene.geometry, "media/bunny.obj", 2.0f);
+    scene.geometry[scene.geometry.size()-1].translate(55,27,60);
+    scene.material.push_back(matGray);
+
     Camera cam;
     cam.position = vec3(10,60,140);
     cam.direction = vec3(0,0,-1);
@@ -91,7 +97,7 @@ int main(int argc, char ** argv) {
 
 	float *pixels = new float[WIDTH*HEIGHT*3];
 
-    SimpleRenderer renderer;
+    MonteCarloRenderer renderer;
     Scene scene;
 
     initScene(scene);

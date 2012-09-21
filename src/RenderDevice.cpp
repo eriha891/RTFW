@@ -1,15 +1,50 @@
 #include "RenderDevice.h"
 
-vec3 RenderDevice::rayTraceBVH(const Ray &ray)
+Hit RenderDevice::rayTraceNode(const Ray &ray, u32 nodeIndex)
 {
-    vec3 intensity;
-
-    if(rayVsAABB(ray,nodes[0].aabb)<MAXFLOAT)
+    // Handle Leaf
+    if(nodes[nodeIndex].isLeaf())
     {
-        rayTraceNode(ray,0,intensity);
-    }
+        f32 hit;
+        f32 closestHit = MAXFLOAT;
+        u32 triangleIndex=0;
 
-    return intensity;
+        for(u32 i=nodes[nodeIndex].getIndex(); i < nodes[nodeIndex].getIndex()+nodes[nodeIndex].getSize(); ++i)
+        {
+            hit = rayVsTriangle(ray,faces[i]);
+            if(hit < closestHit)
+            {
+                closestHit = hit;
+                triangleIndex = i;
+            }
+        }
+        if(closestHit < MAXFLOAT)
+        {
+            return Hit(closestHit, triangleIndex);
+        }
+    }
+    else
+    {
+        f32 distance_box_left = rayVsAABB(ray,nodes[nodes[nodeIndex].getLeft()].aabb);
+        f32 distance_box_right = rayVsAABB(ray,nodes[nodes[nodeIndex].getRight()].aabb);
+
+        Hit leaf_left_hit(MAXFLOAT,0);
+        Hit leaf_right_hit(MAXFLOAT,0);
+
+		if(distance_box_left < MAXFLOAT) {
+            leaf_left_hit = rayTraceNode(ray,nodes[nodeIndex].getLeft());
+		}
+		if(distance_box_right < MAXFLOAT) {
+            leaf_right_hit = rayTraceNode(ray,nodes[nodeIndex].getRight());
+		}
+
+		if(leaf_left_hit < leaf_right_hit) {
+			return leaf_left_hit;
+		} else if (leaf_right_hit.distance < MAXFLOAT) {
+			return leaf_right_hit;
+		}
+    }
+    return Hit(MAXFLOAT,0);
 }
 
 void RenderDevice::renderToArray(Scene *scene, f32 *intensityData, i32 resolutionX, i32 resolutionY)

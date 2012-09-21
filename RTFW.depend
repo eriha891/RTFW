@@ -65,18 +65,19 @@
 	<GL/glew.h>
 	<GL/glfw.h>
 
-1348209574 source:c:\users\gaspachelor\documents\github\rtfw\src\montecarlorenderer.cpp
+1348214066 source:c:\users\gaspachelor\documents\github\rtfw\src\montecarlorenderer.cpp
 	"MonteCarloRenderer.h"
 
-1348209574 c:\users\gaspachelor\documents\github\rtfw\src\montecarlorenderer.h
+1348214082 c:\users\gaspachelor\documents\github\rtfw\src\montecarlorenderer.h
 	"Types.h"
 	"RenderDevice.h"
 
-1348209574 c:\users\gaspachelor\documents\github\rtfw\src\renderdevice.h
+1348214049 c:\users\gaspachelor\documents\github\rtfw\src\renderdevice.h
 	"BVHTools.h"
 	"AABB.h"
 	"Triangle.h"
 	"Ray.h"
+	"Hit.h"
 	"GeometricTools.h"
 	"Types.h"
 	<vector>
@@ -102,20 +103,21 @@
 
 1348209574 c:\users\gaspachelor\documents\github\rtfw\src\light.h
 
-1348209574 source:c:\users\gaspachelor\documents\github\rtfw\src\simplerenderer.cpp
+1348213998 source:c:\users\gaspachelor\documents\github\rtfw\src\simplerenderer.cpp
 	"SimpleRenderer.h"
 
-1348209574 c:\users\gaspachelor\documents\github\rtfw\src\simplerenderer.h
+1348213876 c:\users\gaspachelor\documents\github\rtfw\src\simplerenderer.h
 	"Types.h"
 	"RenderDevice.h"
 
-1348209574 source:c:\users\gaspachelor\documents\github\rtfw\src\main.cpp
+1348211056 source:c:\users\gaspachelor\documents\github\rtfw\src\main.cpp
 	<GL/glew.h>
 	<GL/glfw.h>
 	<cstdio>
 	<pthread.h>
 	<vector>
 	"SimpleRenderer.h"
+	"MonteCarloRenderer.h"
 	"Scene.h"
 	"ObjLoader.h"
 
@@ -295,6 +297,8 @@
 1348209574 source:c:\users\gaspachelor\documents\github\rtfw\src\tokenizer.cpp
 	"Tokenizer.h"
 
-1348209949 source:c:\users\gaspachelor\documents\github\rtfw\src\renderdevice.cpp
+1348213952 source:c:\users\gaspachelor\documents\github\rtfw\src\renderdevice.cpp
 	"RenderDevice.h"
+
+1348212648 c:\users\gaspachelor\documents\github\rtfw\src\hit.h
 

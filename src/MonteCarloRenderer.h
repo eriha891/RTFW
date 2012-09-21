@@ -8,8 +8,8 @@
 
 class MonteCarloRenderer : public RenderDevice
 {
-public:
-    void renderToArray(Scene *scene, f32 *intensityData, u32 resolutionX, u32 resolutionY);
+private:
+    vec3 rayTraceBVH(const Ray &ray);
 };
 
 #endif
