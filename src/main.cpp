@@ -25,12 +25,35 @@ typedef struct
 
 void *renderParallell( void *arg )
 {
-	clock_t start = clock();
+
     RenderTarget *rt = (RenderTarget*)arg;
+
+	clock_t start = clock(), middle = clock(),end;
+    double cpu_time;
+
+    rt->device->buildBVH(rt->scene);
+    
+    end = clock();
+    cpu_time = static_cast<double>( end - middle ) / CLOCKS_PER_SEC;
+    printf("Time to build BVH: %f seconds\n", cpu_time);
+
+    middle = clock();
     rt->device->renderToArray(rt->scene, rt->pixels, WIDTH, HEIGHT);
-	clock_t end = clock();
-	double cpu_time = static_cast<double>( end - start ) / CLOCKS_PER_SEC;
-	printf("Time to render: %f seconds\n", cpu_time);
+
+	end = clock();
+	cpu_time = static_cast<double>( end - middle ) / CLOCKS_PER_SEC;
+	printf("Time to render 1 ray/pixel: %f seconds\n", cpu_time);
+
+    middle = clock();
+    rt->device->renderToArray(rt->scene, rt->pixels, WIDTH, HEIGHT, 8);
+
+    end = clock();
+    cpu_time = static_cast<double>( end - middle ) / CLOCKS_PER_SEC;
+    printf("Time to render 16 ray/pixel: %f seconds\n", cpu_time);
+    cpu_time = static_cast<double>( end - start ) / CLOCKS_PER_SEC;
+    printf("Total time: %f seconds\n", cpu_time);
+
+
     return NULL;
 }
 
@@ -121,7 +144,7 @@ int main(int argc, char ** argv) {
 	}
 
     glClearColor(0.0f, 0.0f, 0.0f, 0.0f);	// making default background color black
-    glfwSwapInterval(1);
+    glfwSwapInterval(0);
 
 	float *pixels = new float[WIDTH*HEIGHT*3];
 
@@ -134,7 +157,8 @@ int main(int argc, char ** argv) {
     rt.device = &renderer;
     rt.scene = &scene;
     rt.pixels = pixels;
-
+    renderParallell((void*)&rt);
+    /*
 	pthread_t thread;
 	int rc = pthread_create(&thread, NULL, renderParallell, (void*)&rt);
 	if (rc)
@@ -142,7 +166,8 @@ int main(int argc, char ** argv) {
         printf("ERROR; return code from pthread_create() is %d\n", rc);
         return 0;
     }
-
+*/
+    // ray tracing is already done
     bool quitProgram = false;
 	while(!quitProgram) {
 

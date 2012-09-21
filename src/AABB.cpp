@@ -1,9 +1,6 @@
-#ifdef WIN32
-#include <gl/glew.h>
-#endif
-#include <gl/glfw.h>
 
-#include "aabb.h"
+
+#include "AABB.h"
 
 bool AABB::inside(const glm::vec3 &point) const
 {

@@ -5,6 +5,7 @@
 
 #include "Types.h"
 #include <vector>
+#include <stdio.h>
 #include "BVHNode.h"
 
 #define NUMBINS 8

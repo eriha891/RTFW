@@ -47,7 +47,7 @@ Hit RenderDevice::rayTraceNode(const Ray &ray, u32 nodeIndex)
     return Hit(MAXFLOAT,0);
 }
 
-void RenderDevice::renderToArray(Scene *scene, f32 *intensityData, i32 resolutionX, i32 resolutionY)
+void RenderDevice::buildBVH(Scene *scene)
 {
     nodes.clear();
     materials.clear();
@@ -101,6 +101,10 @@ void RenderDevice::renderToArray(Scene *scene, f32 *intensityData, i32 resolutio
 
         printf("faces size = %i \n", (int)faces.size());
     }
+}
+void RenderDevice::renderToArray(Scene *scene, f32 *intensityData, i32 resolutionX, i32 resolutionY, i32 raysperpixel)
+{
+    
 
     Camera *cam = &scene->camera[scene->activeCamera];
 
@@ -123,18 +127,16 @@ void RenderDevice::renderToArray(Scene *scene, f32 *intensityData, i32 resolutio
 
     //Ray ray;
     //ray.origin = eyePos;
-
+    /*
     printf("topLeft %f %f %f \n",topLeft.x,topLeft.y,topLeft.z);
     printf("topRight %f %f %f \n",topRight.x,topRight.y,topRight.z);
     printf("bottomLeft %f %f %f \n",bottomLeft.x,bottomLeft.y,bottomLeft.z);
-	
+	*/
     f32 fResX = (f32)resolutionX;
     f32 fResY = (f32)resolutionY;
-
-	int raysperpixel = 2;
 	
-	i32 x,y;
-	//#pragma omp parallel for private(x)
+	i32 x;
+	#pragma omp parallel for private(x) schedule (guided)
 	for(i32 y=0; y<resolutionY; ++y)
     {
 		//#pragma omp parallell for
@@ -171,8 +173,18 @@ void RenderDevice::renderToArray(Scene *scene, f32 *intensityData, i32 resolutio
             intensityData[pos + 1] = intensity.y;
             intensityData[pos + 2] = intensity.z;
 			
+            
+        }
+
+        // render after each line
+        //#pragma omp master
+        if (omp_get_thread_num() == 0)
+        {
+            glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+            glDrawPixels(resolutionX,resolutionY,GL_RGB,GL_FLOAT,intensityData);
+            glfwSwapBuffers();
         }
     }
 
-    std::cout<<"Done!"<<std::endl;
+    //std::cout<<"Done!"<<std::endl;
 }

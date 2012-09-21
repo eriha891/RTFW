@@ -1,11 +1,5 @@
-#include <iostream>
-#include <string>
-#include <cstdio>
-#include <cassert>
-#include <fstream>
-#include <vector>
-#include "objloader.h"
-#include "tokenizer.h"
+
+#include "ObjLoader.h"
 
 #define toFloat(x) atof(x.c_str())
 #define toInt(x) atoi(x.c_str())

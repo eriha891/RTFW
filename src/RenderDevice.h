@@ -18,7 +18,8 @@
 class RenderDevice
 {
 public:
-    void renderToArray(Scene *scene, f32 *intensityData, i32 resolutionX, i32 resolutionY);
+    void renderToArray(Scene *scene, f32 *intensityData, i32 resolutionX, i32 resolutionY, i32 raysperpixel = 1);
+    void buildBVH(Scene *scene);
 private:
 	virtual vec3 rayTraceBVH(const Ray &ray) = 0;
 protected:

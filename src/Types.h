@@ -5,10 +5,15 @@
 #include <gl/glew.h>
 #endif
 
+#ifdef __linux__
+#include <GL/glfw.h>
+#else
 #include <gl/glfw.h>
+#endif
+
 #include <glm/glm.hpp>
 #include <glm/gtc/quaternion.hpp>
-#include <glm/gtc/random.hpp>
+//#include <glm/gtc/random.hpp>
 #include <glm/gtx/random.hpp>
 #include <omp.h>
 
