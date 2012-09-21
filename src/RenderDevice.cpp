@@ -133,12 +133,13 @@ void RenderDevice::renderToArray(Scene *scene, f32 *intensityData, i32 resolutio
 
 	int raysperpixel = 2;
 	
-	
+	i32 x,y;
+	//#pragma omp parallel for private(x)
 	for(i32 y=0; y<resolutionY; ++y)
     {
 		//#pragma omp parallell for
         //#pragma omp parallell num_threads(4)
-		for(i32 x=0; x<resolutionX; ++x)
+		for(x=0; x<resolutionX; ++x)
         {
 		    Ray ray;
 		    ray.origin = eyePos;
