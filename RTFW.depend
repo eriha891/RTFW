@@ -103,7 +103,7 @@
 
 1348209574 c:\users\gaspachelor\documents\github\rtfw\src\light.h
 
-1348213998 source:c:\users\gaspachelor\documents\github\rtfw\src\simplerenderer.cpp
+1348214174 source:c:\users\gaspachelor\documents\github\rtfw\src\simplerenderer.cpp
 	"SimpleRenderer.h"
 
 1348213876 c:\users\gaspachelor\documents\github\rtfw\src\simplerenderer.h
@@ -143,7 +143,7 @@
 	"Ray.h"
 	"Triangle.h"
 
-1348209574 c:\users\gaspachelor\documents\github\rtfw\src\ray.h
+1348217003 c:\users\gaspachelor\documents\github\rtfw\src\ray.h
 	"Types.h"
 
 1348170309 source:c:\users\gurido\documents\github\rtfw\src\aabb.cpp
