@@ -59,7 +59,7 @@ void RenderDevice::renderToArray(Scene *scene, f32 *intensityData, i32 resolutio
                 matLib.push_back(scene->material[i]);
         }
 
-        createBVH(nodes, order, aabb, 12, 20);
+        createBVH(nodes, order, aabb, 2, 30);
 
         reorderVector(faces, order);
         reorderVector(materials, order);
@@ -112,7 +112,7 @@ void RenderDevice::renderToArray(Scene *scene, f32 *intensityData, i32 resolutio
 			intensity = intensity / (f32) raysperpixel;
 			*/
 
-			int raysperpixel = 2;
+			int raysperpixel = 1;
 			for(int rayX = 0; rayX < raysperpixel; rayX++) {
 				for(int rayY = 0; rayY < raysperpixel; rayY++) {
 					f32 stepx = (f32)rayX / (f32)raysperpixel;
@@ -124,11 +124,10 @@ void RenderDevice::renderToArray(Scene *scene, f32 *intensityData, i32 resolutio
 			intensity = intensity / (f32) (raysperpixel*raysperpixel);
 
 
-                int pos = (resolutionX*y + x) * 3;
-                intensityData[pos + 0] = intensity.x;
-                intensityData[pos + 1] = intensity.y;
-                intensityData[pos + 2] = intensity.z;
-            //}
+            int pos = (resolutionX*y + x) * 3;
+            intensityData[pos + 0] = intensity.x;
+            intensityData[pos + 1] = intensity.y;
+            intensityData[pos + 2] = intensity.z;
         }
     }
 
