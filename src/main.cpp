@@ -28,11 +28,13 @@ void *renderParallell( void *arg )
 
     RenderTarget *rt = (RenderTarget*)arg;
 
-	clock_t start = clock(), middle = clock(),end;
+	//clock_t start = clock();
+	clock_t middle = clock(),end;
     double cpu_time;
 
     rt->device->buildBVH(rt->scene);
-    
+
+
     end = clock();
     cpu_time = static_cast<double>( end - middle ) / CLOCKS_PER_SEC;
     printf("Time to build BVH: %f seconds\n", cpu_time);
@@ -44,6 +46,7 @@ void *renderParallell( void *arg )
 	cpu_time = static_cast<double>( end - middle ) / CLOCKS_PER_SEC;
 	printf("Time to render 1 ray/pixel: %f seconds\n", cpu_time);
 
+/*
     middle = clock();
     rt->device->renderToArray(rt->scene, rt->pixels, WIDTH, HEIGHT, 8);
 
@@ -53,7 +56,7 @@ void *renderParallell( void *arg )
     cpu_time = static_cast<double>( end - start ) / CLOCKS_PER_SEC;
     printf("Total time: %f seconds\n", cpu_time);
 
-
+*/
     return NULL;
 }
 
@@ -79,7 +82,7 @@ void initScene(Scene &scene)
     matRed.setDiffuseColor(1.0,0.0,0.0);
     Material matLight;
     matLight.setDiffuseColor(1.0,1.0,1.0);
-    matLight.setEmission(10.0);
+    matLight.setEmission(10.0,10.0,10.0);
 
 	// definition for the coolbox
 	loadObj(scene.geometry, "media/coolbox.obj", 1.0f);
@@ -110,8 +113,8 @@ void initScene(Scene &scene)
 }
 
 int main(int argc, char ** argv) {
-	
-	
+
+
 	/*
     int th_id, nthreads;
     #pragma omp parallel private(th_id) shared(nthreads)
@@ -121,20 +124,20 @@ int main(int argc, char ** argv) {
       {
 		  //cout << "Hello World from thread " << th_id << '\n';
 		  printf("Hello World from thread %i\n", th_id);
-			
+
 	}
 	#pragma omp barrier
- 
+
       #pragma omp master
       {
         nthreads = omp_get_num_threads();
         //cout << "There are " << nthreads << " threads" << '\n';
 		printf("There are %i threads\n", nthreads);
-			
+
       }
     }
 	*/
-	
+
 	glfwInit();
 
 	// GLFW_WINDOW

@@ -21,6 +21,10 @@
 #define MAXFLOAT 1e+37f
 #endif
 
+#ifndef PI
+#define PI 3.1415926536f
+#endif
+
 
 using glm::vec2;
 using glm::vec3;

@@ -146,70 +146,70 @@
 1348217003 c:\users\gaspachelor\documents\github\rtfw\src\ray.h
 	"Types.h"
 
-1348170309 source:c:\users\gurido\documents\github\rtfw\src\aabb.cpp
-	<gl/glew.h>
-	<gl/glfw.h>
-	"aabb.h"
+1348236321 source:c:\users\gurido\documents\github\rtfw\src\aabb.cpp
+	"AABB.h"
 
-1348170309 c:\users\gurido\documents\github\rtfw\src\aabb.h
+1348236321 c:\users\gurido\documents\github\rtfw\src\aabb.h
 	"Types.h"
 
-1348170309 c:\users\gurido\documents\github\rtfw\src\types.h
+1348258409 c:\users\gurido\documents\github\rtfw\src\types.h
 	<gl/glew.h>
+	<GL/glfw.h>
 	<gl/glfw.h>
 	<glm/glm.hpp>
 	<glm/gtc/quaternion.hpp>
-	<glm/gtc/random.hpp>
 	<glm/gtx/random.hpp>
 	<omp.h>
 
-1348170309 source:c:\users\gurido\documents\github\rtfw\src\bvhtools.cpp
+1348236321 source:c:\users\gurido\documents\github\rtfw\src\bvhtools.cpp
 	"BVHTools.h"
 
-1348170309 c:\users\gurido\documents\github\rtfw\src\bvhtools.h
+1348236321 c:\users\gurido\documents\github\rtfw\src\bvhtools.h
 	"Types.h"
 	<vector>
+	<stdio.h>
 	"BVHNode.h"
 
-1348170309 c:\users\gurido\documents\github\rtfw\src\bvhnode.h
+1348236321 c:\users\gurido\documents\github\rtfw\src\bvhnode.h
 	"Types.h"
 	"AABB.h"
 
-1348170309 source:c:\users\gurido\documents\github\rtfw\src\geometrictools.cpp
+1348236321 source:c:\users\gurido\documents\github\rtfw\src\geometrictools.cpp
 	<glm/gtx/extented_min_max.hpp>
 	"GeometricTools.h"
 
-1348170309 c:\users\gurido\documents\github\rtfw\src\geometrictools.h
+1348236321 c:\users\gurido\documents\github\rtfw\src\geometrictools.h
 	"Types.h"
 	"AABB.h"
 	"Ray.h"
 	"Triangle.h"
 
-1348170309 c:\users\gurido\documents\github\rtfw\src\ray.h
+1348236321 c:\users\gurido\documents\github\rtfw\src\ray.h
 	"Types.h"
 
-1348170309 c:\users\gurido\documents\github\rtfw\src\triangle.h
+1348236321 c:\users\gurido\documents\github\rtfw\src\triangle.h
 	"Types.h"
 
-1348170309 source:c:\users\gurido\documents\github\rtfw\src\montecarlorenderer.cpp
+1348262199 source:c:\users\gurido\documents\github\rtfw\src\montecarlorenderer.cpp
 	"MonteCarloRenderer.h"
 
-1348170309 c:\users\gurido\documents\github\rtfw\src\montecarlorenderer.h
+1348261717 c:\users\gurido\documents\github\rtfw\src\montecarlorenderer.h
 	"Types.h"
 	"RenderDevice.h"
 
-1348170309 c:\users\gurido\documents\github\rtfw\src\renderdevice.h
+1348236321 c:\users\gurido\documents\github\rtfw\src\renderdevice.h
 	"BVHTools.h"
 	"AABB.h"
 	"Triangle.h"
 	"Ray.h"
+	"Hit.h"
 	"GeometricTools.h"
 	"Types.h"
 	<vector>
 	"Scene.h"
 	<omp.h>
 
-1348170309 c:\users\gurido\documents\github\rtfw\src\scene.h
+1348236321 c:\users\gurido\documents\github\rtfw\src\scene.h
 	<vector>
 	"Types.h"
 	"Geometry.h"
@@ -217,77 +217,77 @@
 	"Camera.h"
 	"Light.h"
 
-1348170309 c:\users\gurido\documents\github\rtfw\src\geometry.h
+1348236321 c:\users\gurido\documents\github\rtfw\src\geometry.h
 	<iostream>
 	<algorithm>
 	<vector>
 	"Types.h"
 	"AABB.h"
 
-1348170309 c:\users\gurido\documents\github\rtfw\src\material.h
+1348262075 c:\users\gurido\documents\github\rtfw\src\material.h
 	"Types.h"
 	"Texture.h"
 
-1348170309 c:\users\gurido\documents\github\rtfw\src\texture.h
+1348236321 c:\users\gurido\documents\github\rtfw\src\texture.h
 	"Types.h"
 
-1348170309 c:\users\gurido\documents\github\rtfw\src\camera.h
+1348236321 c:\users\gurido\documents\github\rtfw\src\camera.h
 
-1348170309 c:\users\gurido\documents\github\rtfw\src\light.h
+1348236321 c:\users\gurido\documents\github\rtfw\src\light.h
 
-1348170309 source:c:\users\gurido\documents\github\rtfw\src\objloader.cpp
+1348236321 source:c:\users\gurido\documents\github\rtfw\src\objloader.cpp
+	"ObjLoader.h"
+
+1348236321 c:\users\gurido\documents\github\rtfw\src\objloader.h
 	<iostream>
 	<string>
 	<cstdio>
 	<cassert>
 	<fstream>
 	<vector>
-	"objloader.h"
-	"tokenizer.h"
-
-1348170309 c:\users\gurido\documents\github\rtfw\src\objloader.h
-	<iostream>
-	<vector>
 	"Types.h"
 	"Geometry.h"
+	"Tokenizer.h"
 
-1348170309 c:\users\gurido\documents\github\rtfw\src\tokenizer.h
+1348236321 c:\users\gurido\documents\github\rtfw\src\tokenizer.h
 	<vector>
 	<iostream>
 	<string>
 
-1348170776 source:c:\users\gurido\documents\github\rtfw\src\renderdevice.cpp
+1348236435 source:c:\users\gurido\documents\github\rtfw\src\renderdevice.cpp
 	"RenderDevice.h"
 
-1348170309 source:c:\users\gurido\documents\github\rtfw\src\shader.cpp
+1348236321 source:c:\users\gurido\documents\github\rtfw\src\shader.cpp
 	<fstream>
 	<cstdio>
 	<string>
 	"Shader.h"
 
-1348170309 c:\users\gurido\documents\github\rtfw\src\shader.h
+1348236321 c:\users\gurido\documents\github\rtfw\src\shader.h
 	<iostream>
 	<map>
 	<GL/glew.h>
 	<GL/glfw.h>
 
-1348170309 source:c:\users\gurido\documents\github\rtfw\src\simplerenderer.cpp
+1348236321 source:c:\users\gurido\documents\github\rtfw\src\simplerenderer.cpp
 	"SimpleRenderer.h"
 
-1348170309 c:\users\gurido\documents\github\rtfw\src\simplerenderer.h
+1348236321 c:\users\gurido\documents\github\rtfw\src\simplerenderer.h
 	"Types.h"
 	"RenderDevice.h"
 
-1348170309 source:c:\users\gurido\documents\github\rtfw\src\tokenizer.cpp
+1348236321 source:c:\users\gurido\documents\github\rtfw\src\tokenizer.cpp
 	"Tokenizer.h"
 
-1348170846 source:c:\users\gurido\documents\github\rtfw\src\main.cpp
+1348261776 source:c:\users\gurido\documents\github\rtfw\src\main.cpp
 	<GL/glew.h>
 	<GL/glfw.h>
 	<cstdio>
 	<pthread.h>
 	<vector>
+	<ctime>
 	"SimpleRenderer.h"
+	"MonteCarloRenderer.h"
 	"Scene.h"
 	"ObjLoader.h"
 
@@ -301,4 +301,6 @@
 	"RenderDevice.h"
 
 1348212648 c:\users\gaspachelor\documents\github\rtfw\src\hit.h
+
+1348236321 c:\users\gurido\documents\github\rtfw\src\hit.h
 

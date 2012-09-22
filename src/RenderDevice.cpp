@@ -104,7 +104,7 @@ void RenderDevice::buildBVH(Scene *scene)
 }
 void RenderDevice::renderToArray(Scene *scene, f32 *intensityData, i32 resolutionX, i32 resolutionY, i32 raysperpixel)
 {
-    
+
 
     Camera *cam = &scene->camera[scene->activeCamera];
 
@@ -114,7 +114,7 @@ void RenderDevice::renderToArray(Scene *scene, f32 *intensityData, i32 resolutio
     vec3 eyeLeft = glm::normalize(glm::cross(cam->up, cam->direction));
     vec3 eyeUp = glm::normalize(glm::cross(cam->direction, eyeLeft));
     vec3 eyeForward = glm::normalize(cam->direction);
-	
+
 	eyeLeft = eyeLeft* 0.5f;
 	eyeUp = eyeUp* 0.5f;
 
@@ -134,7 +134,7 @@ void RenderDevice::renderToArray(Scene *scene, f32 *intensityData, i32 resolutio
 	*/
     f32 fResX = (f32)resolutionX;
     f32 fResY = (f32)resolutionY;
-	
+
 	i32 x;
 	#pragma omp parallel for private(x) schedule (guided)
 	for(i32 y=0; y<resolutionY; ++y)
@@ -156,7 +156,7 @@ void RenderDevice::renderToArray(Scene *scene, f32 *intensityData, i32 resolutio
 			}
 			intensity = intensity / (f32) raysperpixel;
 			*/
-			
+
 			for(int rayX = 0; rayX < raysperpixel; rayX++) {
 				for(int rayY = 0; rayY < raysperpixel; rayY++) {
 					f32 stepx = (f32)rayX / (f32)raysperpixel;
@@ -167,13 +167,13 @@ void RenderDevice::renderToArray(Scene *scene, f32 *intensityData, i32 resolutio
 			}
 			intensity = intensity / (f32) (raysperpixel*raysperpixel);
 
-			
+
             int pos = (resolutionX*y + x) * 3;
             intensityData[pos + 0] = intensity.x;
             intensityData[pos + 1] = intensity.y;
             intensityData[pos + 2] = intensity.z;
-			
-            
+
+
         }
 
         // render after each line
