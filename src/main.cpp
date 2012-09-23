@@ -76,12 +76,18 @@ void initScene(Scene &scene)
 
     Material matGray;
     matGray.setDiffuseColor(0.5,0.5,0.5);
+    //matGray.setEmission(0.01,0.01,0.01);
+
     Material matGreen;
-    matGreen.setDiffuseColor(0.0,1.0,0.0);
+    matGreen.setDiffuseColor(0.1,0.8,0.1);
+    //matGreen.setEmission(0.01,0.01,0.01);
+
     Material matRed;
-    matRed.setDiffuseColor(1.0,0.0,0.0);
+    matRed.setDiffuseColor(0.8,0.1,0.1);
+    //matRed.setEmission(0.01,0.01,0.01);
+
     Material matLight;
-    matLight.setDiffuseColor(1.0,1.0,1.0);
+    matLight.setDiffuseColor(0.9,0.9,0.8);
     matLight.setEmission(10.0,10.0,10.0);
 
 	// definition for the coolbox

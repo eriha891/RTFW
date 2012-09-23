@@ -1,6 +1,6 @@
 #include "MonteCarloRenderer.h"
 #define NUMRAYS 10
-#define MAXDEPTH 2
+#define MAXDEPTH 3
 
 vec3 MonteCarloRenderer::radiance(const Ray &ray, u8 depth)
 {
@@ -17,17 +17,21 @@ vec3 MonteCarloRenderer::radiance(const Ray &ray, u8 depth)
             vec3 b = glm::cross(n,a);
             for(int i=0; i<NUMRAYS; ++i)
             {
-                f32 phi = glm::compRand1(0.0f,1.0f) * 2.0f*PI;
-                f32 height = glm::compRand1(0.0f,1.0f);
-                f32 sqrtHeight = glm::sqrt(height);
+                f32 phi = glm::compRand1(0.0f,1.0f) * 360.0f;
+                f32 r = glm::compRand1(0.0f,1.0f);
+                //f32 sqrt_r = glm::sqrt(r);
 
-                Ray newRay(ray.origin + ray.direction*hit.distance, glm::normalize(a*sqrtHeight*glm::cos(phi) + b*sqrtHeight*glm::sin(phi) + n*glm::sqrt(1.0f-height)));
+                Ray newRay(ray.origin + ray.direction*hit.distance + n*0.01f, a*r*glm::cos(phi) + b*r*glm::sin(phi) + n*glm::sqrt(1.0f-r*r));
 
                 Material *mat = &matLib[materials[hit.index]];
 
-                rad = mat->getEmission() + mat->getDiffuseColor()*radiance(newRay, depth+1);
+                rad = mat->getEmission() + mat->getDiffuseColor()*radiance(newRay, depth+1) / (f32)NUMRAYS;
             }
         }
+    }
+    else
+    {
+        rad = vec3(1.1,1.1,1.1);
     }
 
     return rad;
