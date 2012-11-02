@@ -18,7 +18,6 @@
 
 typedef struct
 {
-    RenderDevice *device;
     Scene *scene;
     float *pixels;
 }RenderTarget;
@@ -28,27 +27,29 @@ void *renderParallell( void *arg )
 
     RenderTarget *rt = (RenderTarget*)arg;
 
-	//clock_t start = clock();
+	clock_t start = clock();
 	clock_t middle = clock(),end;
     double cpu_time;
 
-    rt->device->buildBVH(rt->scene);
+    SimpleRenderer sr;
+    MonteCarloRenderer mr;
 
+    sr.buildBVH(rt->scene);
+    mr.buildBVH(rt->scene);
 
     end = clock();
     cpu_time = static_cast<double>( end - middle ) / CLOCKS_PER_SEC;
     printf("Time to build BVH: %f seconds\n", cpu_time);
 
     middle = clock();
-    rt->device->renderToArray(rt->scene, rt->pixels, WIDTH, HEIGHT);
+    sr.renderToArray(rt->scene, rt->pixels, WIDTH, HEIGHT, 1);
 
 	end = clock();
 	cpu_time = static_cast<double>( end - middle ) / CLOCKS_PER_SEC;
 	printf("Time to render 1 ray/pixel: %f seconds\n", cpu_time);
 
-/*
     middle = clock();
-    rt->device->renderToArray(rt->scene, rt->pixels, WIDTH, HEIGHT, 8);
+    mr.renderToArray(rt->scene, rt->pixels, WIDTH, HEIGHT, 1);
 
     end = clock();
     cpu_time = static_cast<double>( end - middle ) / CLOCKS_PER_SEC;
@@ -56,7 +57,6 @@ void *renderParallell( void *arg )
     cpu_time = static_cast<double>( end - start ) / CLOCKS_PER_SEC;
     printf("Total time: %f seconds\n", cpu_time);
 
-*/
     return NULL;
 }
 
@@ -88,7 +88,7 @@ void initScene(Scene &scene)
 
     Material matLight;
     matLight.setDiffuseColor(0.9,0.9,0.8);
-    matLight.setEmission(10.0,10.0,10.0);
+    matLight.setEmission(60.0,60.0,50.0);
 
 	// definition for the coolbox
 	loadObj(scene.geometry, "media/coolbox.obj", 1.0f);
@@ -105,9 +105,9 @@ void initScene(Scene &scene)
     scene.material.push_back(matGray);		// box right
 
     // stanford bunny
-    loadObj(scene.geometry, "media/bunny.obj", 2.0f);
-    scene.geometry[scene.geometry.size()-1].translate(55,27,60);
-    scene.material.push_back(matGray);
+    //loadObj(scene.geometry, "media/bunny.obj", 2.0f);
+    //scene.geometry[scene.geometry.size()-1].translate(55,27,60);
+    //scene.material.push_back(matGray);
 
     Camera cam;
     cam.position = vec3(10,60,190);
@@ -115,6 +115,13 @@ void initScene(Scene &scene)
     cam.up = vec3(0,1,0);
 
     scene.camera.push_back(cam);
+
+    cam.position = vec3(10,60,100);
+    cam.direction = vec3(-0.1,0.5,-1);
+    cam.up = vec3(0,1,0);
+
+    scene.camera.push_back(cam);
+
     scene.activeCamera = 0;
 }
 
@@ -157,13 +164,11 @@ int main(int argc, char ** argv) {
 
 	float *pixels = new float[WIDTH*HEIGHT*3];
 
-    MonteCarloRenderer renderer;
     Scene scene;
 
     initScene(scene);
 
     RenderTarget rt;
-    rt.device = &renderer;
     rt.scene = &scene;
     rt.pixels = pixels;
     renderParallell((void*)&rt);

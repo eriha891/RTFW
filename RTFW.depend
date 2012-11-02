@@ -174,7 +174,7 @@
 	"Types.h"
 	"AABB.h"
 
-1348236321 source:c:\users\gurido\documents\github\rtfw\src\geometrictools.cpp
+1348472790 source:c:\users\gurido\documents\github\rtfw\src\geometrictools.cpp
 	<glm/gtx/extented_min_max.hpp>
 	"GeometricTools.h"
 
@@ -187,10 +187,10 @@
 1348236321 c:\users\gurido\documents\github\rtfw\src\ray.h
 	"Types.h"
 
-1348236321 c:\users\gurido\documents\github\rtfw\src\triangle.h
+1348520041 c:\users\gurido\documents\github\rtfw\src\triangle.h
 	"Types.h"
 
-1348424960 source:c:\users\gurido\documents\github\rtfw\src\montecarlorenderer.cpp
+1348520309 source:c:\users\gurido\documents\github\rtfw\src\montecarlorenderer.cpp
 	"MonteCarloRenderer.h"
 
 1348261717 c:\users\gurido\documents\github\rtfw\src\montecarlorenderer.h
@@ -224,7 +224,7 @@
 	"Types.h"
 	"AABB.h"
 
-1348262075 c:\users\gurido\documents\github\rtfw\src\material.h
+1348427456 c:\users\gurido\documents\github\rtfw\src\material.h
 	"Types.h"
 	"Texture.h"
 
@@ -254,7 +254,7 @@
 	<iostream>
 	<string>
 
-1348236435 source:c:\users\gurido\documents\github\rtfw\src\renderdevice.cpp
+1348520085 source:c:\users\gurido\documents\github\rtfw\src\renderdevice.cpp
 	"RenderDevice.h"
 
 1348236321 source:c:\users\gurido\documents\github\rtfw\src\shader.cpp
@@ -279,7 +279,7 @@
 1348236321 source:c:\users\gurido\documents\github\rtfw\src\tokenizer.cpp
 	"Tokenizer.h"
 
-1348423839 source:c:\users\gurido\documents\github\rtfw\src\main.cpp
+1348468540 source:c:\users\gurido\documents\github\rtfw\src\main.cpp
 	<GL/glew.h>
 	<GL/glfw.h>
 	<cstdio>

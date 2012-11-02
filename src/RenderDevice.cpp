@@ -25,16 +25,13 @@ Hit RenderDevice::rayTraceNode(const Ray &ray, u32 nodeIndex)
     }
     else
     {
-        f32 distance_box_left = rayVsAABB(ray,nodes[nodes[nodeIndex].getLeft()].aabb);
-        f32 distance_box_right = rayVsAABB(ray,nodes[nodes[nodeIndex].getRight()].aabb);
-
         Hit leaf_left_hit(MAXFLOAT,0);
         Hit leaf_right_hit(MAXFLOAT,0);
 
-		if(distance_box_left < MAXFLOAT) {
+		if(rayVsAABB(ray,nodes[nodes[nodeIndex].getLeft()].aabb) < MAXFLOAT) {
             leaf_left_hit = rayTraceNode(ray,nodes[nodeIndex].getLeft());
 		}
-		if(distance_box_right < MAXFLOAT) {
+		if(rayVsAABB(ray,nodes[nodes[nodeIndex].getRight()].aabb) < MAXFLOAT) {
             leaf_right_hit = rayTraceNode(ray,nodes[nodeIndex].getRight());
 		}
 
@@ -77,6 +74,7 @@ void RenderDevice::buildBVH(Scene *scene)
                 }
 
                 t.normal = scene->geometry[i].faceNormal[u];
+                t.nOrt = glm::normalize(t.point[2] - t.point[0]);
 
                 faces.push_back(t);
                 materials.push_back(i);
@@ -94,7 +92,7 @@ void RenderDevice::buildBVH(Scene *scene)
                 matLib.push_back(scene->material[i]);
         }
 
-        createBVH(nodes, order, aabb, 2, 30);
+        createBVH(nodes, order, aabb, 6, 50);
 
         reorderVector(faces, order);
         reorderVector(materials, order);

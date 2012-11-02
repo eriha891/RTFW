@@ -26,6 +26,7 @@ public:
         opacity = 1.0f;
         specularIntensity = 10.0f;
         refractiveIndex = 1.0f;
+        diffuseColor = vec3(0.5f);
 
         for(int i=0; i<8; ++i)
             texture[i] = NULL;
