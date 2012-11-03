@@ -74,7 +74,7 @@ void RenderDevice::buildBVH(Scene *scene)
                 }
 
                 t.normal = scene->geometry[i].faceNormal[u];
-                t.nOrt = glm::normalize(t.point[2] - t.point[0]);
+                t.nOrt = glm::normalize(t.point[0] - t.point[2]);
 
                 faces.push_back(t);
                 materials.push_back(i);
@@ -92,7 +92,7 @@ void RenderDevice::buildBVH(Scene *scene)
                 matLib.push_back(scene->material[i]);
         }
 
-        createBVH(nodes, order, aabb, 6, 50);
+        createBVH(nodes, order, aabb, 10, 30);
 
         reorderVector(faces, order);
         reorderVector(materials, order);

@@ -6,8 +6,6 @@
 #ifndef OBJLOADER_H
 #define OBJLOADER_H
 
-
-
 #include <iostream>
 #include <string>
 #include <cstdio>

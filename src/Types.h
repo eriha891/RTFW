@@ -43,6 +43,7 @@ using glm::mat4;
 
 using glm::quat;
 
+typedef glm::highp_vec3         hpvec3;
 
 typedef unsigned char 	        u8;
 typedef unsigned short 	        u16;

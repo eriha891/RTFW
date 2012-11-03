@@ -91,7 +91,7 @@ void initScene(Scene &scene)
     matLight.setEmission(60.0,60.0,50.0);
 
 	// definition for the coolbox
-	loadObj(scene.geometry, "media/coolbox.obj", 1.0f);
+	loadObj(scene.geometry, "media/coolbox.obj", 0.01f);
     scene.material.push_back(matGray);		// floor
     scene.material.push_back(matGray);		// back wall
     scene.material.push_back(matGreen);		// left wall
@@ -105,18 +105,18 @@ void initScene(Scene &scene)
     scene.material.push_back(matGray);		// box right
 
     // stanford bunny
-    //loadObj(scene.geometry, "media/bunny.obj", 2.0f);
-    //scene.geometry[scene.geometry.size()-1].translate(55,27,60);
+    //loadObj(scene.geometry, "media/bunny.obj", 0.02f);
+    //scene.geometry[scene.geometry.size()-1].translate(0.55f,0.27f,0.60f);
     //scene.material.push_back(matGray);
 
     Camera cam;
-    cam.position = vec3(10,60,190);
+    cam.position = vec3(0.04,0.6,1.9);
     cam.direction = vec3(0,0,-1);
     cam.up = vec3(0,1,0);
 
     scene.camera.push_back(cam);
 
-    cam.position = vec3(10,60,100);
+    cam.position = vec3(.1,.6,1.0);
     cam.direction = vec3(-0.1,0.5,-1);
     cam.up = vec3(0,1,0);
 
