@@ -8,7 +8,7 @@ class Hit
 public:
     f32 distance;
     u32 index;
-	vec3 normal;
+	vec2 triCoord;
 
     Hit() {}
 
@@ -16,6 +16,13 @@ public:
     {
         distance = d;
         index = i;
+    }
+
+    Hit(f32 d, u32 i, vec2 uv)
+    {
+        distance = d;
+        index = i;
+        triCoord = uv;
     }
 };
 
