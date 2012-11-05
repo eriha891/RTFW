@@ -12,7 +12,7 @@ Hit RenderDevice::rayTraceNode(const Ray &ray, u32 nodeIndex)
         for(u32 i=nodes[nodeIndex].getIndex(); i < nodes[nodeIndex].getIndex()+nodes[nodeIndex].getSize(); ++i)
         {
             hit = rayVsTriangle(ray,faces[i]);
-            if(hit < closestHit)
+            if(hit > 0.0 && hit < closestHit)
             {
                 closestHit = hit;
                 triangleIndex = i;

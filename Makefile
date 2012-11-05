@@ -34,7 +34,7 @@ all: $(OBJECTS)
 
 clean:
 	-@echo "Cleaning"
-	-$(RM) *.o
+	-$(RM) src/*.o
 
 # pattern that compiles all .o files, both .cpp and .c works (tested on linux)
 %.o: %.cpp

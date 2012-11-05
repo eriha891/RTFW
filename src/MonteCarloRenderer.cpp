@@ -1,10 +1,5 @@
 #include "MonteCarloRenderer.h"
 
-//#define NUMRAYS 10
-//#define MAXDEPTH 3
-
-#define KILLPROBABILITY 0.1
-#define INITIAL_RAYS_PER_PiXEL 10
 
 inline vec3 reinhardTonemap(const vec3 &x)
 {
@@ -30,25 +25,27 @@ vec3 MonteCarloRenderer::radiance(const Ray &ray)
     Hit hit = rayTraceNode(ray,0);
     if(hit < MAXFLOAT)
     {
+		f32 limit = 0.9;
+		f32 r = glm::compRand1(0.0f,1.0f);
         rad = matLib[materials[hit.index]].getEmission() + matLib[materials[hit.index]].getDiffuseColor()*0.05f;
-        if(glm::compRand1(0.0f,1.0f) > KILLPROBABILITY)
+        if(r < limit)
         {
-        // calculate plane vectors
-        vec3 n = faces[hit.index].normal;
-        vec3 origin = ray.origin + ray.direction*hit.distance + n*.01f;
-        vec3 a = faces[hit.index].nOrt;
-        vec3 b = glm::cross(n,a);
+			r = r / limit;
+        	// calculate plane vectors
+        	vec3 n = faces[hit.index].normal;
+        	vec3 origin = ray.origin + ray.direction*hit.distance + n*.01f;
+        	vec3 a = faces[hit.index].nOrt;
+        	vec3 b = glm::cross(n,a);
 
-            //f32 phi = glm::compRand1(0.0f,2.0f*PI);
-            //f32 r = glm::compRand1(0.0f,1.0f);
+			f32 phi = glm::compRand1(0.0f,2.0f*PI);
 
             /*vec3 dir = glm::vecRand3(1.0f,1.0f);
             while(glm::dot(dir,n)<0.0f)
                 dir = glm::vecRand3(1.0f,1.0f);*/
 
-            Ray newRay(origin, glm::normalize(n + a*glm::compRand1(-1.0f,1.0f) + b*glm::compRand1(-1.0f,1.0f)));
+            //Ray newRay(origin, glm::normalize(n + a*glm::compRand1(-1.0f,1.0f) + b*glm::compRand1(-1.0f,1.0f)));
 
-            //Ray newRay(origin, a*r*glm::cos(phi) + b*r*glm::sin(phi) + n*glm::sqrt(1.0f-r*r));
+			Ray newRay(origin, a*r*glm::cos(phi) + b*r*glm::sin(phi) + n*glm::sqrt(1.0f-r*r));
             rad = matLib[materials[hit.index]].getEmission() + matLib[materials[hit.index]].getDiffuseColor()*radiance(newRay);
         }
     }
@@ -58,11 +55,5 @@ vec3 MonteCarloRenderer::radiance(const Ray &ray)
 
 inline vec3 MonteCarloRenderer::rayTraceBVH(const Ray &ray)
 {
-    vec3 rad(0);
-
-    for(u8 i=0; i<INITIAL_RAYS_PER_PiXEL; i++)
-    {
-        rad += radiance(ray);
-    }
-    return reinhardTonemap(rad/static_cast<f32>(INITIAL_RAYS_PER_PiXEL));
+    return glm::sqrt(radiance(ray));
 }

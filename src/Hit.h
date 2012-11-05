@@ -8,6 +8,7 @@ class Hit
 public:
     f32 distance;
     u32 index;
+	vec3 normal;
 
     Hit() {}
 
