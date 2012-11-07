@@ -17,16 +17,16 @@
 		<Cursor position="220" topLine="0" />
 	</File>
 	<File name="src\GeometricTools.cpp" open="1" top="1" tabpos="12">
-		<Cursor position="1862" topLine="45" />
+		<Cursor position="1511" topLine="12" />
 	</File>
 	<File name="src\GeometricTools.h" open="1" top="0" tabpos="16">
-		<Cursor position="146" topLine="0" />
+		<Cursor position="367" topLine="0" />
 	</File>
 	<File name="src\Geometry.h" open="0" top="0" tabpos="9">
 		<Cursor position="2690" topLine="118" />
 	</File>
 	<File name="src\Hit.h" open="1" top="0" tabpos="7">
-		<Cursor position="137" topLine="6" />
+		<Cursor position="305" topLine="0" />
 	</File>
 	<File name="src\Light.h" open="0" top="0" tabpos="8">
 		<Cursor position="0" topLine="0" />
@@ -50,7 +50,7 @@
 		<Cursor position="191" topLine="0" />
 	</File>
 	<File name="src\RenderDevice.cpp" open="1" top="0" tabpos="6">
-		<Cursor position="1799" topLine="87" />
+		<Cursor position="422" topLine="0" />
 	</File>
 	<File name="src\RenderDevice.h" open="1" top="0" tabpos="1">
 		<Cursor position="588" topLine="0" />
@@ -65,7 +65,7 @@
 		<Cursor position="276" topLine="0" />
 	</File>
 	<File name="src\SimpleRenderer.cpp" open="1" top="0" tabpos="3">
-		<Cursor position="380" topLine="0" />
+		<Cursor position="576" topLine="0" />
 	</File>
 	<File name="src\SimpleRenderer.h" open="1" top="0" tabpos="2">
 		<Cursor position="247" topLine="0" />
@@ -83,6 +83,6 @@
 		<Cursor position="459" topLine="7" />
 	</File>
 	<File name="src\main.cpp" open="1" top="0" tabpos="4">
-		<Cursor position="1360" topLine="46" />
+		<Cursor position="1044" topLine="0" />
 	</File>
 </CodeBlocks_layout_file>

@@ -24,7 +24,7 @@ f32 rayVsAABB(const Ray &ray, const AABB &aabb)
     return tmin;
 }
 
-bool barycentricTriangleIntersect(vec3 &p, const Triangle &t, vec2 &uv)
+bool barycentricTriangleIntersect(const vec3 &p, const Triangle &t, vec3 &baryCoords)
 {
     glm::vec3 v0 = t.point[2] - t.point[0];
     glm::vec3 v1 = t.point[1] - t.point[0];
@@ -37,34 +37,31 @@ bool barycentricTriangleIntersect(vec3 &p, const Triangle &t, vec2 &uv)
     f32 dot12 = glm::dot(v1,v2);
 
     f32 invDenom = 1.0 / (dot00 * dot11 - dot01 * dot01);
-    uv[0] = (dot11 * dot02 - dot01 * dot12) * invDenom;
-    uv[1] = (dot00 * dot12 - dot01 * dot02) * invDenom;
+    baryCoords[0] = (dot11 * dot02 - dot01 * dot12) * invDenom;
+    baryCoords[1] = (dot00 * dot12 - dot01 * dot02) * invDenom;
 
-    return (uv[0] > 0.0) && (uv[1] > 0.0) && (uv[0] + uv[1] < 1.0);
+    baryCoords[2] = 1.0 - baryCoords[0] - baryCoords[1];
+
+    return (baryCoords[0] > 0.0) && (baryCoords[1] > 0.0) && (baryCoords[0] + baryCoords[1] < 1.0);
 }
 
-f32 rayVsTriangle(const Ray &ray, const Triangle &triangle, vec2 &uv)
+f32 rayVsTriangle(const Ray &ray, const Triangle &triangle, vec3 &baryCoords)
 {
     f32 t = glm::dot(triangle.point[0]-ray.origin, triangle.normal) / glm::dot(ray.direction, triangle.normal);
 
     vec3 pointInPlane = ray.origin + ray.direction*t;
 
-    if(barycentricTriangleIntersect(pointInPlane, triangle, uv))
+    if(barycentricTriangleIntersect(pointInPlane, triangle, baryCoords))
         return t;
 
     return MAXFLOAT;
 }
 
-vec3 interpolateNormal(const Triangle &triangle, const vec2 &uv)
+vec3 interpolateNormal(const Triangle &triangle, const vec3 &baryCoords)
 {
     /**
-    u coordinate in vector p0p2
-    v coordinate in vector p0p1
+    baryCoords is the weights of the vertices
     **/
-    // a = mix(n0,n2,u)
-    // b = mix(n0,n1,v)
-    //
 
-
-    return vec3();
+    return triangle.pointNormal[0]*baryCoords[0] + triangle.pointNormal[1]*baryCoords[1] + triangle.pointNormal[2]*baryCoords[2];
 }

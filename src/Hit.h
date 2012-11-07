@@ -8,7 +8,7 @@ class Hit
 public:
     f32 distance;
     u32 index;
-	vec2 triCoord;
+	vec3 baryCoords;
 
     Hit() {}
 
@@ -18,11 +18,11 @@ public:
         index = i;
     }
 
-    Hit(f32 d, u32 i, vec2 uv)
+    Hit(f32 d, u32 i, vec3 bc)
     {
         distance = d;
         index = i;
-        triCoord = uv;
+        baryCoords = bc;
     }
 };
 

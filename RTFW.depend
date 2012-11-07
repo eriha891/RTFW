@@ -172,11 +172,11 @@
 	"Types.h"
 	"AABB.h"
 
-1351895352 source:c:\users\gurido\documents\github\rtfw\src\geometrictools.cpp
+1352152694 source:c:\users\gurido\documents\github\rtfw\src\geometrictools.cpp
 	<glm/gtx/extented_min_max.hpp>
 	"GeometricTools.h"
 
-1348232721 c:\users\gurido\documents\github\rtfw\src\geometrictools.h
+1352152584 c:\users\gurido\documents\github\rtfw\src\geometrictools.h
 	"Types.h"
 	"AABB.h"
 	"Ray.h"
@@ -188,14 +188,14 @@
 1348516441 c:\users\gurido\documents\github\rtfw\src\triangle.h
 	"Types.h"
 
-1351930721 source:c:\users\gurido\documents\github\rtfw\src\montecarlorenderer.cpp
+1352137466 source:c:\users\gurido\documents\github\rtfw\src\montecarlorenderer.cpp
 	"MonteCarloRenderer.h"
 
 1351891908 c:\users\gurido\documents\github\rtfw\src\montecarlorenderer.h
 	"Types.h"
 	"RenderDevice.h"
 
-1348232721 c:\users\gurido\documents\github\rtfw\src\renderdevice.h
+1352137466 c:\users\gurido\documents\github\rtfw\src\renderdevice.h
 	"BVHTools.h"
 	"AABB.h"
 	"Triangle.h"
@@ -252,7 +252,7 @@
 	<iostream>
 	<string>
 
-1351894268 source:c:\users\gurido\documents\github\rtfw\src\renderdevice.cpp
+1352152551 source:c:\users\gurido\documents\github\rtfw\src\renderdevice.cpp
 	"RenderDevice.h"
 
 1348232721 source:c:\users\gurido\documents\github\rtfw\src\shader.cpp
@@ -267,17 +267,17 @@
 	<GL/glew.h>
 	<GL/glfw.h>
 
-1351893578 source:c:\users\gurido\documents\github\rtfw\src\simplerenderer.cpp
+1352152774 source:c:\users\gurido\documents\github\rtfw\src\simplerenderer.cpp
 	"SimpleRenderer.h"
 
-1348232721 c:\users\gurido\documents\github\rtfw\src\simplerenderer.h
+1352137466 c:\users\gurido\documents\github\rtfw\src\simplerenderer.h
 	"Types.h"
 	"RenderDevice.h"
 
 1348232721 source:c:\users\gurido\documents\github\rtfw\src\tokenizer.cpp
 	"Tokenizer.h"
 
-1351930670 source:c:\users\gurido\documents\github\rtfw\src\main.cpp
+1352137466 source:c:\users\gurido\documents\github\rtfw\src\main.cpp
 	<GL/glew.h>
 	<GL/glfw.h>
 	<cstdio>
@@ -300,5 +300,5 @@
 
 1352130539 c:\users\gaspachelor\documents\github\rtfw\src\hit.h
 
-1348232721 c:\users\gurido\documents\github\rtfw\src\hit.h
+1352152488 c:\users\gurido\documents\github\rtfw\src\hit.h
 

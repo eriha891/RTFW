@@ -8,22 +8,22 @@ Hit RenderDevice::rayTraceNode(const Ray &ray, u32 nodeIndex)
         f32 hit;
         f32 closestHit = MAXFLOAT;
         u32 triangleIndex=0;
-        vec2 hituv;
-        vec2 uv;
+        vec3 hitBaryCoords;
+        vec3 baryCoords;
 
         for(u32 i=nodes[nodeIndex].getIndex(); i < nodes[nodeIndex].getIndex()+nodes[nodeIndex].getSize(); ++i)
         {
-            hit = rayVsTriangle(ray,faces[i],hituv);
+            hit = rayVsTriangle(ray,faces[i],hitBaryCoords);
             if(hit > 0.0 && hit < closestHit)
             {
                 closestHit = hit;
                 triangleIndex = i;
-                uv = hituv;
+                baryCoords = hitBaryCoords;
             }
         }
         if(closestHit < MAXFLOAT)
         {
-            return Hit(closestHit, triangleIndex, uv);
+            return Hit(closestHit, triangleIndex, baryCoords);
         }
     }
     else
