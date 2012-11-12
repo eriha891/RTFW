@@ -25,14 +25,14 @@ vec3 MonteCarloRenderer::radiance(const Ray &ray)
     Hit hit = rayTraceNode(ray,0);
     if(hit < MAXFLOAT)
     {
-		f32 limit = 0.9;
+		const f32 limit = 0.9;
 		f32 r = glm::compRand1(0.0f,1.0f);
         rad = matLib[materials[hit.index]].getEmission() + matLib[materials[hit.index]].getDiffuseColor()*0.05f;
         if(r < limit)
         {
 			r = r / limit;
         	// calculate plane vectors
-        	vec3 n = faces[hit.index].normal;
+        	vec3 n = interpolateNormal(faces[hit.index], hit.baryCoords);
         	vec3 origin = ray.origin + ray.direction*hit.distance + n*.01f;
         	vec3 a = faces[hit.index].nOrt;
         	vec3 b = glm::cross(n,a);

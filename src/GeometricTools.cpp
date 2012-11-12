@@ -24,6 +24,10 @@ f32 rayVsAABB(const Ray &ray, const AABB &aabb)
     return tmin;
 }
 
+/**
+* Modified version of http://www.blackpawn.com/texts/pointinpoly/default.html
+*/
+
 bool barycentricTriangleIntersect(const vec3 &p, const Triangle &t, vec3 &baryCoords)
 {
     glm::vec3 v0 = t.point[2] - t.point[0];
@@ -37,12 +41,13 @@ bool barycentricTriangleIntersect(const vec3 &p, const Triangle &t, vec3 &baryCo
     f32 dot12 = glm::dot(v1,v2);
 
     f32 invDenom = 1.0 / (dot00 * dot11 - dot01 * dot01);
-    baryCoords[0] = (dot11 * dot02 - dot01 * dot12) * invDenom;
+    baryCoords[2] = (dot11 * dot02 - dot01 * dot12) * invDenom;
     baryCoords[1] = (dot00 * dot12 - dot01 * dot02) * invDenom;
 
-    baryCoords[2] = 1.0 - baryCoords[0] - baryCoords[1];
+    baryCoords[0] = 1.0f - baryCoords[1] - baryCoords[2];
 
-    return (baryCoords[0] > 0.0) && (baryCoords[1] > 0.0) && (baryCoords[0] + baryCoords[1] < 1.0);
+    return (baryCoords[1] > 0.0) && (baryCoords[2] > 0.0) && (baryCoords[0] > 0.0);
+
 }
 
 f32 rayVsTriangle(const Ray &ray, const Triangle &triangle, vec3 &baryCoords)
@@ -63,5 +68,5 @@ vec3 interpolateNormal(const Triangle &triangle, const vec3 &baryCoords)
     baryCoords is the weights of the vertices
     **/
 
-    return triangle.pointNormal[0]*baryCoords[0] + triangle.pointNormal[1]*baryCoords[1] + triangle.pointNormal[2]*baryCoords[2];
+    return glm::normalize(triangle.pointNormal[0]*baryCoords[0] + triangle.pointNormal[1]*baryCoords[1] + triangle.pointNormal[2]*baryCoords[2]);
 }
