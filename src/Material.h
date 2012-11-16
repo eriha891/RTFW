@@ -23,10 +23,11 @@ public:
 
     Material()
     {
-        opacity = 1.0f;
-        specularFactor = 0.5f;
-        refractiveIndex = 1.0f;
-        diffuseColor = vec3(0.5f);
+        //Defaultvalues
+        opacity = 1.0f;             // Perfectly opaque
+        specularFactor = 0.1f;      // Very diffuse
+        refractiveIndex = 1.0f;     // Som refractive index? Air ≈ 1.0?
+        diffuseColor = vec3(0.5f);  // Grey color
 
         for(int i=0; i<8; ++i)
             texture[i] = NULL;

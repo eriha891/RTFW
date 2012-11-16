@@ -49,7 +49,7 @@ void *renderParallell( void *arg )
 	printf("Time to render 1 ray/pixel with SimpleRenderer: %f seconds\n", cpu_time);
 
     middle = clock();
-    mr.renderToArray(rt->scene, rt->pixels, WIDTH, HEIGHT, 8);
+    mr.renderToArray(rt->scene, rt->pixels, WIDTH, HEIGHT, 10);
 
     end = clock();
     cpu_time = static_cast<double>( end - middle ) / CLOCKS_PER_SEC;
@@ -78,9 +78,16 @@ void initScene(Scene &scene)
     matWhite.setDiffuseColor(0.9,0.9,0.9);
     //matGray.setEmission(0.01,0.01,0.01);
 
+    Material mirror;
+    mirror.setDiffuseColor(1.0,1.0,1.0);
+    mirror.setSpecularFactor(1.0);
+
     Material matGray;
     matGray.setDiffuseColor(0.5,0.5,0.5);
     //matGray.setEmission(0.01,0.01,0.01);
+
+    Material matBlue;
+    matBlue.setDiffuseColor(0.1,0.1,0.9);
 
     Material matGreen;
     matGreen.setDiffuseColor(0.1,0.8,0.1);
@@ -99,12 +106,12 @@ void initScene(Scene &scene)
 
     Material specularish;
     specularish.setDiffuseColor(0.9,0.9,0.1);
-    specularish.setSpecularFactor(0.99); //Very glossy
+    specularish.setSpecularFactor(0.7); //Very glossy
 
 	// definition for the coolbox
 	loadObj(scene.geometry, "media/coolbox.obj", 0.01f);
     scene.material.push_back(specularish);		// floor
-    scene.material.push_back(matGray);		// back wall
+    scene.material.push_back(matBlue);		// back wall
     scene.material.push_back(matGreen);		// left wall
     scene.material.push_back(matRed);		// right wall
     scene.material.push_back(matGray);		// cieling
@@ -117,8 +124,12 @@ void initScene(Scene &scene)
 
     // stanford bunny
     loadObj(scene.geometry, "media/bunny.obj", 0.02f);
-    scene.geometry[scene.geometry.size()-1].translate(0.55f,0.27f,0.60f);
-    scene.material.push_back(matGreen);
+    scene.geometry[scene.geometry.size()-1].translate(-0.22f,0.815f,-0.1f);
+    scene.material.push_back(matRed);
+
+    loadObj(scene.geometry, "media/sphere.obj", 0.4f);
+    scene.geometry[scene.geometry.size()-1].translate(0.15f,0.35f,0.20f);
+    scene.material.push_back(mirror);
 
     Camera cam;
     cam.position = vec3(0.04,0.6,1.9);
