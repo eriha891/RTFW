@@ -27,7 +27,7 @@ vec3 MonteCarloRenderer::radiance(const Ray &ray)
     {
 		const f32 limit = 0.9;
 		f32 r = glm::compRand1(0.0f,1.0f);
-        rad = matLib[materials[hit.index]].getEmission() + matLib[materials[hit.index]].getDiffuseColor()*0.05f;
+        rad = matLib[materials[hit.index]].getEmission();
         if(r < limit)
         {
 			r = r / limit;
@@ -37,15 +37,15 @@ vec3 MonteCarloRenderer::radiance(const Ray &ray)
         	vec3 a = faces[hit.index].nOrt;
         	vec3 b = glm::cross(n,a);
 
-			f32 phi = glm::compRand1(0.0f,2.0f*PI);
+            vec3 reflection = ray.direction - 2.0f * glm::dot(ray.direction,n) * n;
+            f32 phi = glm::compRand1(0.0f,2.0f*PI);
+            vec3 diffuse = a*r*glm::cos(phi) + b*r*glm::sin(phi) + n*glm::sqrt(1.0f-r*r);
 
-            /*vec3 dir = glm::vecRand3(1.0f,1.0f);
-            while(glm::dot(dir,n)<0.0f)
-                dir = glm::vecRand3(1.0f,1.0f);*/
+            f32 t = matLib[materials[hit.index]].getSpecularFactor();
 
-            //Ray newRay(origin, glm::normalize(n + a*glm::compRand1(-1.0f,1.0f) + b*glm::compRand1(-1.0f,1.0f)));
+            // Do a linear interpolation between a perfect diffuse and a perfect reflection according to specularFactor
 
-			Ray newRay(origin, a*r*glm::cos(phi) + b*r*glm::sin(phi) + n*glm::sqrt(1.0f-r*r));
+			Ray newRay( origin, glm::normalize(diffuse*(1.0f-t) + reflection*t) );
             rad = matLib[materials[hit.index]].getEmission() + matLib[materials[hit.index]].getDiffuseColor()*radiance(newRay);
         }
     }

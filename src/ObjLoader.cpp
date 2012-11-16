@@ -145,8 +145,8 @@ int loadObj( std::vector<Geometry> &geomList, const std::string &filename, float
 
                     if(vtdata[i]>-1)
                     {
-                        tv.s = tempTexCoord[vtdata[i]].s;
-                        tv.t = tempTexCoord[vtdata[i]].t;
+                        tv.s = tempTexCoord[vtdata[i]].x;
+                        tv.t = tempTexCoord[vtdata[i]].y;
                     }
                     if(ndata[i]>-1)
                     {
@@ -182,8 +182,8 @@ int loadObj( std::vector<Geometry> &geomList, const std::string &filename, float
             //Profiler.StartTimer("TexCoord");
             vec2 tc;
 
-            tc.s = toFloat(token.getNext());
-            tc.t = toFloat(token.getNext());
+            tc.x = toFloat(token.getNext());
+            tc.y = toFloat(token.getNext());
 
             tempTexCoord.push_back(tc);
             //Profiler.StopTimer("TexCoord");

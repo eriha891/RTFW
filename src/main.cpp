@@ -46,14 +46,14 @@ void *renderParallell( void *arg )
 
 	end = clock();
 	cpu_time = static_cast<double>( end - middle ) / CLOCKS_PER_SEC;
-	printf("Time to render 1 ray/pixel: %f seconds\n", cpu_time);
+	printf("Time to render 1 ray/pixel with SimpleRenderer: %f seconds\n", cpu_time);
 
     middle = clock();
-    mr.renderToArray(rt->scene, rt->pixels, WIDTH, HEIGHT, 20);
+    mr.renderToArray(rt->scene, rt->pixels, WIDTH, HEIGHT, 8);
 
     end = clock();
     cpu_time = static_cast<double>( end - middle ) / CLOCKS_PER_SEC;
-    printf("Time to render 16 ray/pixel: %f seconds\n", cpu_time);
+    printf("Time to render 16 ray/pixel with MonteCarloRenderer: %f seconds\n", cpu_time);
     cpu_time = static_cast<double>( end - start ) / CLOCKS_PER_SEC;
     printf("Total time: %f seconds\n", cpu_time);
 
@@ -74,25 +74,36 @@ void initScene(Scene &scene)
 
     //std::cout<<"scene geoms "<<scene.geometry.size()<<std::endl;
 
+    Material matWhite;
+    matWhite.setDiffuseColor(0.9,0.9,0.9);
+    //matGray.setEmission(0.01,0.01,0.01);
+
     Material matGray;
     matGray.setDiffuseColor(0.5,0.5,0.5);
     //matGray.setEmission(0.01,0.01,0.01);
 
     Material matGreen;
     matGreen.setDiffuseColor(0.1,0.8,0.1);
+    matGreen.setSpecularFactor(0.01);
     //matGreen.setEmission(0.01,0.01,0.01);
 
     Material matRed;
     matRed.setDiffuseColor(0.8,0.1,0.1);
+    matRed.setSpecularFactor(0.01);
     //matRed.setEmission(0.01,0.01,0.01);
 
     Material matLight;
     matLight.setDiffuseColor(0.9,0.9,0.8);
-    matLight.setEmission(60.0,60.0,50.0);
+    matLight.setEmission(80.0,80.0,60.0);
+    matLight.setSpecularFactor(0.01);
+
+    Material specularish;
+    specularish.setDiffuseColor(0.9,0.9,0.1);
+    specularish.setSpecularFactor(0.99); //Very glossy
 
 	// definition for the coolbox
 	loadObj(scene.geometry, "media/coolbox.obj", 0.01f);
-    scene.material.push_back(matGray);		// floor
+    scene.material.push_back(specularish);		// floor
     scene.material.push_back(matGray);		// back wall
     scene.material.push_back(matGreen);		// left wall
     scene.material.push_back(matRed);		// right wall
@@ -105,9 +116,9 @@ void initScene(Scene &scene)
     scene.material.push_back(matGray);		// box right
 
     // stanford bunny
-    //loadObj(scene.geometry, "media/bunny.obj", 0.02f);
-    //scene.geometry[scene.geometry.size()-1].translate(0.55f,0.27f,0.60f);
-    //scene.material.push_back(matGray);
+    loadObj(scene.geometry, "media/bunny.obj", 0.02f);
+    scene.geometry[scene.geometry.size()-1].translate(0.55f,0.27f,0.60f);
+    scene.material.push_back(matGreen);
 
     Camera cam;
     cam.position = vec3(0.04,0.6,1.9);
