@@ -53,8 +53,11 @@ void RenderDevice::buildBVH(Scene *scene)
     materials.clear();
     matLib.clear();
     faces.clear();
+    lights.clear();
 
-    // create the bvh-structure and reallign faces and materials to fit the bvh-structure.
+    lights = scene->light;
+
+    // create the bvh-structure
     {
         std::vector<u32> order;
         std::vector<AABB> aabb;
@@ -82,9 +85,7 @@ void RenderDevice::buildBVH(Scene *scene)
                 faces.push_back(t);
                 materials.push_back(i);
 
-                AABB box;
-                box.invertedMax();
-                box.addFace(t.point[0], t.point[1], t.point[2]);
+                AABB box(&t.point[0][0],9);
                 aabb.push_back(box);
 
                 order.push_back(order.size());
@@ -95,15 +96,17 @@ void RenderDevice::buildBVH(Scene *scene)
                 matLib.push_back(scene->material[i]);
         }
 
-        createBVH(nodes, order, aabb, 10, 30);
+        // create a BVH-structure in nodes
+        BVH::createBVH(nodes, order, aabb, 10, 30);
 
-        reorderVector(faces, order);
-        reorderVector(materials, order);
+        // reallign faces and materials to fit the bvh-structure.
+        BVH::reorderVector(faces, order);
+        BVH::reorderVector(materials, order);
 
         printf("faces size = %i \n", (int)faces.size());
     }
 }
-void RenderDevice::renderToArray(Scene *scene, f32 *intensityData, i32 resolutionX, i32 resolutionY, i32 raysperpixel)
+void RenderDevice::renderToArray(Scene *scene, f32 *intensityData, int resolutionX, int resolutionY, int raysperpixel)
 {
 
 
@@ -136,9 +139,9 @@ void RenderDevice::renderToArray(Scene *scene, f32 *intensityData, i32 resolutio
     f32 fResX = (f32)resolutionX;
     f32 fResY = (f32)resolutionY;
 
-	i32 x;
+	int x;
 	#pragma omp parallel for private(x) schedule (guided)
-	for(i32 y=0; y<resolutionY; ++y)
+	for(int y=0; y<resolutionY; ++y)
     {
 		//#pragma omp parallell for
         //#pragma omp parallell num_threads(4)

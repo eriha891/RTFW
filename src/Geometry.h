@@ -43,7 +43,7 @@ public:
 
     void process()
     {
-        i32 sharedFaces[vertex.size()];
+        int sharedFaces[vertex.size()];
         u32 i;
         f32 numFaces;
 

@@ -49,7 +49,7 @@ void *renderParallell( void *arg )
 	printf("Time to render 1 ray/pixel with SimpleRenderer: %f seconds\n", cpu_time);
 
     middle = clock();
-    mr.renderToArray(rt->scene, rt->pixels, WIDTH, HEIGHT, 10);
+    mr.renderToArray(rt->scene, rt->pixels, WIDTH, HEIGHT, 16);
 
     end = clock();
     cpu_time = static_cast<double>( end - middle ) / CLOCKS_PER_SEC;
@@ -91,22 +91,22 @@ void initScene(Scene &scene)
 
     Material matGreen;
     matGreen.setDiffuseColor(0.1,0.8,0.1);
-    matGreen.setSpecularFactor(0.01);
+    matGreen.setSpecularFactor(0.3);
     //matGreen.setEmission(0.01,0.01,0.01);
 
     Material matRed;
     matRed.setDiffuseColor(0.8,0.1,0.1);
-    matRed.setSpecularFactor(0.01);
+    matRed.setSpecularFactor(0.3);
     //matRed.setEmission(0.01,0.01,0.01);
 
     Material matLight;
     matLight.setDiffuseColor(0.9,0.9,0.8);
     matLight.setEmission(80.0,80.0,60.0);
-    matLight.setSpecularFactor(0.01);
+    matLight.setSpecularFactor(0.3);
 
     Material specularish;
     specularish.setDiffuseColor(0.9,0.9,0.1);
-    specularish.setSpecularFactor(0.7); //Very glossy
+    specularish.setSpecularFactor(0.7); //pretty glossy
 
 	// definition for the coolbox
 	loadObj(scene.geometry, "media/coolbox.obj", 0.01f);
@@ -130,6 +130,13 @@ void initScene(Scene &scene)
     loadObj(scene.geometry, "media/sphere.obj", 0.4f);
     scene.geometry[scene.geometry.size()-1].translate(0.15f,0.35f,0.20f);
     scene.material.push_back(mirror);
+
+    Light light;
+    light.intensity = 0.02f;
+    light.color = vec3(0.9,0.9,0.8);
+
+    light.position = vec3(0.15f,1.00f,0.20f);
+    scene.light.push_back(light);
 
     Camera cam;
     cam.position = vec3(0.04,0.6,1.9);

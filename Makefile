@@ -7,7 +7,7 @@ MESSAGE =
 OPENGL=1
 
 #specify dependency list
-OBJECTS ?= src/AABB.o src/BVHTools.o src/GeometricTools.o src/ObjLoader.o src/SimpleRenderer.o src/main.o src/Tokenizer.o src/RenderDevice.o src/MonteCarloRenderer.o
+OBJECTS ?= src/AABB.o src/GeometricTools.o src/ObjLoader.o src/SimpleRenderer.o src/MonteCarloRenderer.o src/main.o src/Tokenizer.o src/RenderDevice.o
 OUTPUT ?= Program
 FLAGS ?=
 CFLAGS ?= -O3 -fopenmp

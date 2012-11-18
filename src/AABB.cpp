@@ -20,12 +20,13 @@ AABB::AABB(const AABB &box)
 
 AABB::AABB(const f32* pointData, u32 size)
 {
-    assert(pointData && size>0);
+    assert(pointData && size>2);
+    assert(size%3 == 0);
 
     vec3 p(pointData[0],pointData[1],pointData[2]);
     _min = _max = p;
 
-    for(u32 i=3; i<size*3; i+=3)
+    for(u32 i=3; i<size; i+=3)
     {
         p = vec3(pointData[i],pointData[i+1],pointData[i+2]);
         _min = glm::min(_min,p);

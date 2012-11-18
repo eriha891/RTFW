@@ -25,7 +25,7 @@ public:
     {
         //Defaultvalues
         opacity = 1.0f;             // Perfectly opaque
-        specularFactor = 0.1f;      // Very diffuse
+        specularFactor = 0.3f;      // Very diffuse
         refractiveIndex = 1.0f;     // Som refractive index? Air ≈ 1.0?
         diffuseColor = vec3(0.5f);  // Grey color
 

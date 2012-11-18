@@ -6,6 +6,7 @@
 
 class Light
 {
+public:
 	vec3 position;
 	vec3 color;
 	f32 intensity;

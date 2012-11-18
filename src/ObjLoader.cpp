@@ -126,7 +126,7 @@ int loadObj( std::vector<Geometry> &geomList, const std::string &filename, float
                 param = token.getNext();
                 getIndices(param,vdata[i],vtdata[i],ndata[i]);
 
-                if(tempSG > (i32)vertexUsed[vdata[i]].size()-1)
+                if(tempSG > (int)vertexUsed[vdata[i]].size()-1)
                     vertexUsed[vdata[i]].resize(tempSG+1,-1);
 
                 if(vertexUsed[vdata[i]][tempSG] > -1)
