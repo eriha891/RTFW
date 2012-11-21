@@ -25,6 +25,13 @@
 #define PI 3.1415926536f
 #endif
 
+// constans for materials
+#ifndef AIR
+#define AIR 1.000293
+#endif
+#ifndef GLASS
+#define GLASS 1.52
+#endif
 
 using glm::vec2;
 using glm::vec3;

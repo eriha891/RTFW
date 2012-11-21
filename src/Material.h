@@ -18,6 +18,7 @@ private:
     f32 opacity;
     f32 specularFactor; // 0 is perfectly diffuse, 1 is perfectly specular
     f32 refractiveIndex;
+    f32 n;
 
 public:
 
@@ -36,6 +37,8 @@ public:
     inline const vec3 &getDiffuseColor() { return diffuseColor; }
     inline const vec3 &getEmission() { return emission; }
     inline const f32 &getSpecularFactor() { return specularFactor; }
+    inline const f32 &getOpacity() { return opacity; }
+    inline const f32 &getRefractiveIndex() { return refractiveIndex; }
 
     void setAmbientColor(f32 r, f32 g, f32 b) { ambientColor = glm::clamp(vec3(r,g,b),0.0f,1.0f); }
     void setDiffuseColor(f32 r, f32 g, f32 b) { diffuseColor = glm::clamp(vec3(r,g,b),0.0f,1.0f); }
@@ -43,6 +46,7 @@ public:
     void setEmission(f32 r, f32 g, f32 b) { emission = glm::clamp(vec3(r,g,b),0.0f,MAXFLOAT); }
 
     void setOpacity(f32 val) { opacity = glm::clamp(val,0.0f,1.0f); }
+    void setRefractiveIndex(f32 val) { refractiveIndex = glm::clamp(val,0.0f,5.0f); }
     void setSpecularFactor(f32 val) { specularFactor = glm::clamp(val,0.0f,1.0f); }
     void setTexture(u8 slot, Texture *tex) { if(slot<8) texture[slot] = tex; }
 };

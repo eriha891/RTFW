@@ -49,7 +49,7 @@ void *renderParallell( void *arg )
 	printf("Time to render 1 ray/pixel with SimpleRenderer: %f seconds\n", cpu_time);
 
     middle = clock();
-    mr.renderToArray(rt->scene, rt->pixels, WIDTH, HEIGHT, 16);
+    mr.renderToArray(rt->scene, rt->pixels, WIDTH, HEIGHT, 25);
 
     end = clock();
     cpu_time = static_cast<double>( end - middle ) / CLOCKS_PER_SEC;
@@ -108,6 +108,12 @@ void initScene(Scene &scene)
     specularish.setDiffuseColor(0.9,0.9,0.1);
     specularish.setSpecularFactor(0.7); //pretty glossy
 
+    Material glass;
+    glass.setDiffuseColor(1.0,1.0,1.0);
+    glass.setSpecularFactor(1.0);
+    glass.setOpacity(0.0);
+    glass.setRefractiveIndex(GLASS);
+
 	// definition for the coolbox
 	loadObj(scene.geometry, "media/coolbox.obj", 0.01f);
     scene.material.push_back(specularish);		// floor
@@ -120,7 +126,7 @@ void initScene(Scene &scene)
     scene.material.push_back(matGray);		// cylinder
     scene.material.push_back(matGray);		// teapot
     scene.material.push_back(matGray);		// box left
-    scene.material.push_back(matGray);		// box right
+    scene.material.push_back(glass);		// box right
 
     // stanford bunny
     loadObj(scene.geometry, "media/bunny.obj", 0.02f);
@@ -129,7 +135,7 @@ void initScene(Scene &scene)
 
     loadObj(scene.geometry, "media/sphere.obj", 0.4f);
     scene.geometry[scene.geometry.size()-1].translate(0.15f,0.35f,0.20f);
-    scene.material.push_back(mirror);
+    scene.material.push_back(glass);
 
     Light light;
     light.intensity = 0.02f;
