@@ -49,7 +49,7 @@ void *renderParallell( void *arg )
 	printf("Time to render 1 ray/pixel with SimpleRenderer: %f seconds\n", cpu_time);
 
     middle = clock();
-    mr.renderToArray(rt->scene, rt->pixels, WIDTH, HEIGHT, 25);
+    mr.renderToArray(rt->scene, rt->pixels, WIDTH, HEIGHT, 16);
 
     end = clock();
     cpu_time = static_cast<double>( end - middle ) / CLOCKS_PER_SEC;
@@ -111,7 +111,7 @@ void initScene(Scene &scene)
     Material glass;
     glass.setDiffuseColor(1.0,1.0,1.0);
     glass.setSpecularFactor(1.0);
-    glass.setOpacity(0.0);
+    glass.setOpacity(0.05);
     glass.setRefractiveIndex(GLASS);
 
 	// definition for the coolbox
