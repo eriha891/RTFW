@@ -49,7 +49,7 @@ void *renderParallell( void *arg )
 	printf("Time to render 1 ray/pixel with SimpleRenderer: %f seconds\n", cpu_time);
 
     middle = clock();
-    mr.renderToArray(rt->scene, rt->pixels, WIDTH, HEIGHT, 16);
+    mr.renderToArray(rt->scene, rt->pixels, WIDTH, HEIGHT, 5);
 
     end = clock();
     cpu_time = static_cast<double>( end - middle ) / CLOCKS_PER_SEC;
@@ -102,6 +102,7 @@ void initScene(Scene &scene)
     Material matLight;
     matLight.setDiffuseColor(0.9,0.9,0.8);
     matLight.setEmission(80.0,80.0,60.0);
+    matLight.setEmission(160.0,160.0,160.0);
     matLight.setSpecularFactor(0.3);
 
     Material specularish;

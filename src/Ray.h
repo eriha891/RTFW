@@ -14,17 +14,18 @@ class Ray
 public:
     vec3 origin;
     vec3 direction;
-	f32 importance;
+	f32 refractiveIndex;
+	int originID;
 
 	Ray() {
-		importance = 1.0;
 	};
 
-	Ray(vec3 ori, vec3 dir, f32 imp=1.0f)
+	Ray(vec3 ori, vec3 dir, f32 refr=AIR, int oID = -1)
 	{
 	    origin = ori;
 	    direction = dir;
-	    importance = imp;
+		refractiveIndex = refr;
+		originID = oID;
 	}
 };
 

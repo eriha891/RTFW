@@ -26,7 +26,7 @@ vec3 MonteCarloRenderer::radiance(const Ray &ray)
     if(hit < MAXFLOAT)
     {
         // set the kill-ray limit
-		f32 limit = 0.9;
+		f32 limit = 0.90;
 		f32 r = glm::compRand1(0.0f,1.0f);
 		
         Material *material = &matLib[materials[hit.index]];
@@ -34,6 +34,7 @@ vec3 MonteCarloRenderer::radiance(const Ray &ray)
 
         // calculate the surface normal
         vec3 n = interpolateNormal(faces[hit.index], hit.baryCoords);
+		float normalDisplacement = 0.00001;
 
         // check if ray is inside
         bool inside = (glm::dot(ray.direction,n) > 0.0) ? true : false;
@@ -51,12 +52,12 @@ vec3 MonteCarloRenderer::radiance(const Ray &ray)
                 vec3 newDirection;
 
                 float angle = acos(glm::dot(n, ray.direction * (float) -1.0));
-                float angle_lim = acos(AIR/material->getRefractiveIndex());
+                float angle_lim = acos(ray.refractiveIndex/material->getRefractiveIndex());
                 if(angle > angle_lim) {
-					origin = ray.origin + ray.direction*hit.distance + n*.001f;
+					origin = ray.origin + ray.direction*hit.distance + n*normalDisplacement;
                     newDirection = glm::normalize(ray.direction - 2.0f * glm::dot(ray.direction,n) * n);
                 } else {
-					origin = ray.origin + ray.direction*hit.distance - n*.001f;
+					origin = ray.origin + ray.direction*hit.distance - n*normalDisplacement;
                     float thedot = glm::dot(n,ray.direction);
                     float factor = (snell * thedot - sqrt(1.0 - snell * snell *(1.0 - thedot*thedot)));
                     newDirection = glm::normalize(ray.direction*-snell + n * factor);
@@ -75,7 +76,7 @@ vec3 MonteCarloRenderer::radiance(const Ray &ray)
                 r = r / limit;
 
                 // calculate plane vectors
-                vec3 origin = ray.origin + ray.direction*hit.distance + n*.001f;
+                vec3 origin = ray.origin + ray.direction*hit.distance + n*normalDisplacement;
                 vec3 a = faces[hit.index].nOrt;
                 vec3 b = glm::cross(n,a);
 
@@ -98,13 +99,13 @@ vec3 MonteCarloRenderer::radiance(const Ray &ray)
                 if(opacity < 1.0) {
                     
                     // the new ray that bounces into the object
-                    float snell = AIR / material->getRefractiveIndex();
+                    float snell = ray.refractiveIndex / material->getRefractiveIndex();
 
                     float thedot = glm::dot(n,ray.direction);
                     float factor = (snell * thedot - sqrt(1.0 - snell * snell *(1.0 - thedot*thedot)));
                     vec3 intDirection = glm::normalize(ray.direction*-snell + n * factor);
                     //printf("hej hej");
-                    Ray intRay(ray.origin + ray.direction*hit.distance - n*.001f, intDirection);
+                    Ray intRay(ray.origin + ray.direction*hit.distance - n*normalDisplacement, intDirection);
 
                     // calculate the totance emittance of this surface spot depending on tha opacity factor.
                     float invopacity = (1.0 - opacity);
@@ -190,7 +191,7 @@ vec3 MonteCarloRenderer::radiance(const Ray &ray)
 
 vec3 MonteCarloRenderer::localLighting(const Hit &hit, const Ray &ray)
 {
-    vec3 intensity;
+    vec3 rad;
     vec3 normal = interpolateNormal(faces[hit.index], hit.baryCoords);
     vec3 position = ray.origin + ray.direction*hit.distance + normal*.001f;
 
@@ -201,13 +202,14 @@ vec3 MonteCarloRenderer::localLighting(const Hit &hit, const Ray &ray)
         f32 distSquared = glm::dot(pixelToLight,pixelToLight);
         Hit shadowHit = rayTraceNode(shadowRay, 0);
 
-        intensity += (shadowHit.distance * shadowHit.distance < distSquared) ?
-            matLib[materials[hit.index]].getEmission() :
-            matLib[materials[hit.index]].getDiffuseColor() *
-            lights[i].color * lights[i].intensity / distSquared;
+		if(shadowHit.distance * shadowHit.distance < distSquared) {
+			rad += matLib[materials[hit.index]].getEmission();
+		} else {
+            rad += matLib[materials[hit.index]].getDiffuseColor() * lights[i].color * lights[i].intensity / distSquared	;
+		}
     }
     
-    return intensity;
+    return rad;
 }
 
 inline vec3 MonteCarloRenderer::rayTraceBVH(const Ray &ray)
