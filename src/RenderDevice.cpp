@@ -13,12 +13,14 @@ Hit RenderDevice::rayTraceNode(const Ray &ray, u32 nodeIndex)
 
         for(u32 i=nodes[nodeIndex].getIndex(); i < nodes[nodeIndex].getIndex()+nodes[nodeIndex].getSize(); ++i)
         {
-            hit = rayVsTriangle(ray,faces[i],hitBaryCoords);
-            if(hit > 0.0 && hit < closestHit)
-            {
-                closestHit = hit;
-                triangleIndex = i;
-                baryCoords = hitBaryCoords;
+            if(i != ray.originID) {
+                hit = rayVsTriangle(ray,faces[i],hitBaryCoords);
+                if(hit > 0.0 && hit < closestHit)
+                {
+                    closestHit = hit;
+                    triangleIndex = i;
+                    baryCoords = hitBaryCoords;
+                }
             }
         }
         if(closestHit < MAXFLOAT)
@@ -129,13 +131,6 @@ void RenderDevice::renderToArray(Scene *scene, f32 *intensityData, int resolutio
     vec3 right = topRight-topLeft;
     vec3 up = topLeft-bottomLeft;
 
-    //Ray ray;
-    //ray.origin = eyePos;
-    /*
-    printf("topLeft %f %f %f \n",topLeft.x,topLeft.y,topLeft.z);
-    printf("topRight %f %f %f \n",topRight.x,topRight.y,topRight.z);
-    printf("bottomLeft %f %f %f \n",bottomLeft.x,bottomLeft.y,bottomLeft.z);
-	*/
     f32 fResX = (f32)resolutionX;
     f32 fResY = (f32)resolutionY;
 
@@ -143,24 +138,11 @@ void RenderDevice::renderToArray(Scene *scene, f32 *intensityData, int resolutio
 	#pragma omp parallel for private(x) schedule (guided)
 	for(int y=0; y<resolutionY; ++y)
     {
-		//#pragma omp parallell for
-        //#pragma omp parallell num_threads(4)
 		for(x=0; x<resolutionX; ++x)
         {
 		    Ray ray;
 		    ray.origin = eyePos;
 			vec3 intensity;
-			/*
-			int raysperpixel = 4;
-			for(int rayNR = 0; rayNR < raysperpixel; rayNR++) {
-				float randx = glm::compRand1(0.0f, 1.0f);
-				float randy = glm::compRand1(0.0f, 1.0f);
-	            ray.direction = glm::normalize(bottomLeft + ((f32)x+randx)/fResX * right + ((f32)y+randy)/fResY * up - ray.origin);
-				intensity += rayTraceBVH(ray);
-			}
-			intensity = intensity / (f32) raysperpixel;
-			*/
-
 			for(int rayX = 0; rayX < raysperpixel; rayX++) {
 				for(int rayY = 0; rayY < raysperpixel; rayY++) {
 					f32 stepx = (f32)rayX / (f32)raysperpixel;

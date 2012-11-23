@@ -18,6 +18,8 @@ public:
 	int originID;
 
 	Ray() {
+		refractiveIndex = AIR;
+		originID = -1;
 	};
 
 	Ray(vec3 ori, vec3 dir, f32 refr=AIR, int oID = -1)
