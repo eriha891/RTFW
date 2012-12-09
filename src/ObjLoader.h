@@ -3,14 +3,11 @@
 // Functions to parse .obj files and store inside Geometry
 //
 // Author: Robin Skånberg
+
 #ifndef OBJLOADER_H
 #define OBJLOADER_H
 
-#include <iostream>
 #include <string>
-#include <cstdio>
-#include <cassert>
-#include <fstream>
 #include <vector>
 
 #include "Types.h"

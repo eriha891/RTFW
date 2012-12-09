@@ -138,13 +138,6 @@ void initScene(Scene &scene)
     scene.geometry[scene.geometry.size()-1].translate(0.15f,0.35f,0.20f);
     scene.material.push_back(glass);
 
-    Light light;
-    light.intensity = 0.02f;
-    light.color = vec3(0.9,0.9,0.8);
-
-    light.position = vec3(0.15f,1.00f,0.20f);
-    scene.light.push_back(light);
-
     Camera cam;
     cam.position = vec3(0.04,0.6,1.9);
     cam.direction = vec3(0,0,-1);

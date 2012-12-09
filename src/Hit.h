@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Types.h"
+
 #ifndef HIT_H
 #define HIT_H
 

@@ -2,6 +2,10 @@
 #ifndef CAMERA_H
 #define CAMERA_H
 
+/**
+ *	Camera class
+ */
+
 class Camera
 {
 public:

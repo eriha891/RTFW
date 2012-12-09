@@ -5,6 +5,13 @@
 
 #include "Types.h"
 
+/**
+ *	Triangle
+ *	A simple triangle with normals for each vertex,
+ *	a normal for the plane and a helpvector nOrt that is
+ *	orthogonal to the normal and is located in the plane.
+ */
+
 class Triangle
 {
 public:

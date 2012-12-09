@@ -5,15 +5,10 @@
 #include <gl/glew.h>
 #endif
 
-#ifdef __linux__
 #include <GL/glfw.h>
-#else
-#include <gl/glfw.h>
-#endif
 
 #include <glm/glm.hpp>
 #include <glm/gtc/quaternion.hpp>
-//#include <glm/gtc/random.hpp>
 #include <glm/gtx/random.hpp>
 #include <omp.h>
 
@@ -25,7 +20,7 @@
 #define PI 3.1415926536f
 #endif
 
-// constans for materials
+// refractive index constants for materials
 #ifndef AIR
 #define AIR 1.000293
 #endif
