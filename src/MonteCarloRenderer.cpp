@@ -28,11 +28,10 @@ vec3 MonteCarloRenderer::radiance(const Ray &ray, int depth)
         // set the kill-ray limit
 		f32 limit = 0.9;
 
-        // increase chanse for first rays to survive
-        if(depth < 2) limit = 1.0;
+        // increase chance for first rays to survive
+        //if(depth < 2) limit = 1.0;
         
 		f32 r = glm::compRand1(0.0f,1.0f);
-
 		
         Material *material = &matLib[materials[hit.index]];
         rad = material->getEmission();

@@ -67,5 +67,7 @@ f32 rayVsTriangle(const Ray &ray, const Triangle &triangle, vec3 &baryCoords)
 vec3 interpolateNormal(const Triangle &triangle, const vec3 &baryCoords)
 {
     // baryCoords is the weights of the vertices
-    return glm::normalize(triangle.pointNormal[0]*baryCoords[0] + triangle.pointNormal[1]*baryCoords[1] + triangle.pointNormal[2]*baryCoords[2]);
+    return glm::normalize(  triangle.pointNormal[0]*baryCoords[0] +
+                            triangle.pointNormal[1]*baryCoords[1] +
+                            triangle.pointNormal[2]*baryCoords[2]);
 }
