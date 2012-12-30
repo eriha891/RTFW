@@ -2,6 +2,12 @@
 #ifndef CAMERA_H
 #define CAMERA_H
 
+#include "Types.h"
+
+/**
+ *	Camera class
+ */
+
 class Camera
 {
 public:

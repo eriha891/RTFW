@@ -13,7 +13,7 @@
 
 #include <vector>
 #include "Scene.h"
-#include <omp.h>
+//#include <omp.h>
 #include <stdio.h>
 
 class RenderDevice

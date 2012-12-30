@@ -7,6 +7,14 @@
 #include "BVHNode.h"
 #include "AABB.h"
 
+/**
+ *  BVHTools
+ *  Functions for creating BVH-trees and to reorder vectors.
+ *  createBVH - Creates a bvh-tree
+ *
+ *  Author Robin Skånberg
+ */
+
 #define NUMBINS 8
 #define EPSILON 1.0e-5f
 

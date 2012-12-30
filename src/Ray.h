@@ -6,8 +6,15 @@
 #include "Types.h"
 
 /*
-direction should be normalized.
-*/
+ *	Ray class
+ *	
+ *	origin and direction should be self exlpained.
+ *	refractiveIndex is the refractive index of the medium that
+ *	the ray is comming from.
+ *	originID is the ID of the triangle that the ray is spawned from
+ * 	and thus is immune to collisions against this triangle.
+ *	direction should be normalized.
+ */
 
 class Ray
 {

@@ -3,8 +3,9 @@
 #include "GeometricTools.h"
 
 /**
-* Found at http://gamedev.stackexchange.com/questions/18436/most-efficient-aabb-vs-ray-collision-algorithms
-*/
+ *  Modified version of
+ *  http://gamedev.stackexchange.com/questions/18436/most-efficient-aabb-vs-ray-collision-algorithms
+ */
 
 f32 rayVsAABB(const Ray &ray, const AABB &aabb)
 {
@@ -25,7 +26,8 @@ f32 rayVsAABB(const Ray &ray, const AABB &aabb)
 }
 
 /**
-* Modified version of http://www.blackpawn.com/texts/pointinpoly/default.html
+*   Modified version of
+*   http://www.blackpawn.com/texts/pointinpoly/default.html
 */
 
 bool barycentricTriangleIntersect(const vec3 &p, const Triangle &t, vec3 &baryCoords)
@@ -64,9 +66,8 @@ f32 rayVsTriangle(const Ray &ray, const Triangle &triangle, vec3 &baryCoords)
 
 vec3 interpolateNormal(const Triangle &triangle, const vec3 &baryCoords)
 {
-    /**
-    baryCoords is the weights of the vertices
-    **/
-
-    return glm::normalize(triangle.pointNormal[0]*baryCoords[0] + triangle.pointNormal[1]*baryCoords[1] + triangle.pointNormal[2]*baryCoords[2]);
+    // baryCoords is the weights of the vertices
+    return glm::normalize(  triangle.pointNormal[0]*baryCoords[0] +
+                            triangle.pointNormal[1]*baryCoords[1] +
+                            triangle.pointNormal[2]*baryCoords[2]);
 }

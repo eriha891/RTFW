@@ -5,15 +5,16 @@
 #include "Types.h"
 #include "Texture.h"
 
+/**
+ *  Material class
+ *  
+ */
+
 class Material
 {
 private:
-    vec3 ambientColor;
     vec3 diffuseColor;
-    vec3 specularColor;
     vec3 emission;
-
-    Texture *texture[8];
 
     f32 opacity;
     f32 specularFactor; // 0 is perfectly diffuse, 1 is perfectly specular
@@ -39,9 +40,7 @@ public:
     inline const f32 &getOpacity() { return opacity; }
     inline const f32 &getRefractiveIndex() { return refractiveIndex; }
 
-    void setAmbientColor(f32 r, f32 g, f32 b) { ambientColor = glm::clamp(vec3(r,g,b),0.0f,1.0f); }
     void setDiffuseColor(f32 r, f32 g, f32 b) { diffuseColor = glm::clamp(vec3(r,g,b),0.0f,1.0f); }
-    void setSpecularColor(f32 r, f32 g, f32 b) { specularColor = glm::clamp(vec3(r,g,b),0.0f,1.0f); }
     void setEmission(f32 r, f32 g, f32 b) { emission = glm::clamp(vec3(r,g,b),0.0f,MAXFLOAT); }
 
     void setOpacity(f32 val) { opacity = glm::clamp(val,0.0f,1.0f); }
