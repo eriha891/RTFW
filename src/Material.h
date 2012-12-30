@@ -18,7 +18,6 @@ private:
     f32 opacity;
     f32 specularFactor; // 0 is perfectly diffuse, 1 is perfectly specular
     f32 refractiveIndex;
-    f32 n;
 
 public:
 

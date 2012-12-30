@@ -114,98 +114,9 @@ vec3 MonteCarloRenderer::radiance(const Ray &ray, int depth)
                     rad += material->getDiffuseColor()*radiance(extRay, depth +1);   
                 }
             }
-        } else {
-            rad += localLighting(hit, ray);
         }
-
-        /*
-        if(opacity < 1.0)
-            limit = 0.45;
-
-
-        // why, robsk? why? 
-        //f32 limit = matLib[materials[hit.index]].getSpecularFactor();
-        if(r < limit)
-        {
-			r = r / limit;
-
-        	// calculate plane vectors
-        	vec3 origin = ray.origin + ray.direction*hit.distance + n*.001f;
-        	vec3 a = faces[hit.index].nOrt;
-        	vec3 b = glm::cross(n,a);
-
-            // calculate perfect reflection
-            vec3 reflection = ray.direction - 2.0f * glm::dot(ray.direction,n) * n;
-
-            // calculate a perfect diffuse ray with random direction
-            f32 phi = glm::compRand1(0.0f,2.0f*PI);
-            vec3 diffuse = a*r*glm::cos(phi) + b*r*glm::sin(phi) + n*glm::sqrt(1.0f-r*r);
-
-            // interpolationfaction between perfect reflectio nand perfect diffuse rays
-            f32 t = matLib[materials[hit.index]].getSpecularFactor();
-
-            // Do a linear interpolation between a perfect diffuse and a perfect reflection according to specularFactor
-            vec3 direction = glm::normalize(diffuse*(1.0f-t) + reflection*t);
-
-            // the new ray that bounces of the surface
-			Ray extRay( origin, direction);
-
-            if(opacity < 1.0) {
-                
-                // the new ray that bounces into the object
-                float snell = AIR / matLib[materials[hit.index]].getRefractiveIndex();
-                if(inside) snell = 1.0/snell;
-
-                float thedot = glm::dot(n,ray.direction);
-                float factor = (snell * thedot - sqrt(1.0 - snell * snell *(1.0 - thedot*thedot)));
-                vec3 intDirection = ray.direction*-snell + n * factor;
-                //printf("hej hej");
-                Ray intRay( ray.origin + ray.direction*hit.distance - n*.001f, intDirection);
-
-                // calculate the totance emittance of this surface spot depending on tha opacity factor.
-                float invopacity = (1.0 - opacity);
-                if(inside) {
-                    invopacity = 1.0;
-                } else {
-                    rad += matLib[materials[hit.index]].getDiffuseColor()*radiance(extRay)*opacity;
-                }
-                rad += matLib[materials[hit.index]].getDiffuseColor()*radiance(intRay)*invopacity;
-                
-            } else {
-                rad += matLib[materials[hit.index]].getDiffuseColor()*radiance(extRay);   
-            }
-            
-        }
-        else
-            rad += localLighting(hit, ray);
-
-            */
     }
 
-    return rad;
-}
-
-vec3 MonteCarloRenderer::localLighting(const Hit &hit, const Ray &ray)
-{
-    vec3 rad;
-    vec3 normal = interpolateNormal(faces[hit.index], hit.baryCoords);
-    vec3 position = ray.origin + ray.direction*hit.distance + normal;
-    Material *material = &matLib[materials[hit.index]];
-
-    for(int i=0; i<lights.size(); i++)
-    {
-        vec3 pixelToLight = lights[i].position - position;
-        Ray shadowRay(position, glm::normalize(pixelToLight), material->getRefractiveIndex(), hit.index);
-        f32 distSquared = glm::dot(pixelToLight,pixelToLight);
-        Hit shadowHit = rayTraceNode(shadowRay, 0);
-
-		if(shadowHit.distance * shadowHit.distance < distSquared) {
-			rad += material->getEmission();
-		} else {
-            rad += material->getDiffuseColor() * lights[i].color * lights[i].intensity / distSquared	;
-		}
-    }
-    
     return rad;
 }
 
