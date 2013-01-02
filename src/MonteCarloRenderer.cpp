@@ -18,7 +18,7 @@ vec3 uncharted2Tonemap(const vec3 &x)
     return ((x*(A*x+C*B)+D*E)/(x*(A*x+B)+D*F))-E/F;
 }
 
-vec3 MonteCarloRenderer::radiance(const Ray &ray, int depth)
+vec3 MonteCarloRenderer::radiance(const Ray &ray)
 {
     vec3 rad;
 
@@ -27,10 +27,6 @@ vec3 MonteCarloRenderer::radiance(const Ray &ray, int depth)
     {
         // set the kill-ray limit
 		f32 limit = 0.9;
-
-        // increase chance for first rays to survive
-        //if(depth < 2) limit = 1.0;
-        
 		f32 r = glm::compRand1(0.0f,1.0f);
 		
         Material *material = &matLib[materials[hit.index]];
@@ -66,7 +62,7 @@ vec3 MonteCarloRenderer::radiance(const Ray &ray, int depth)
                     newDirection = glm::normalize(ray.direction*-snell + n * factor);
                 }
                 Ray extRay( origin, newDirection, material->getRefractiveIndex(), hit.index);
-                rad += material->getDiffuseColor()*radiance(extRay, depth +1);  
+                rad += material->getDiffuseColor()*radiance(extRay);  
             } else {
                 r = r / limit;
 
@@ -105,12 +101,12 @@ vec3 MonteCarloRenderer::radiance(const Ray &ray, int depth)
                     // calculate the totance emittance of this surface spot depending on tha opacity factor.
                     float invopacity = (1.0 - opacity);
                     if(opacity > 0.0)
-                        rad += material->getDiffuseColor()*radiance(extRay, depth +1)*opacity;
-                    rad += material->getDiffuseColor()*radiance(intRay, depth +1)*invopacity;
+                        rad += material->getDiffuseColor()*radiance(extRay)*opacity;
+                    rad += material->getDiffuseColor()*radiance(intRay)*invopacity;
 					//rad = vec3(0,0,1);
                     
                 } else {
-                    rad += material->getDiffuseColor()*radiance(extRay, depth +1);   
+                    rad += material->getDiffuseColor()*radiance(extRay);   
                 }
             }
         }
@@ -121,5 +117,5 @@ vec3 MonteCarloRenderer::radiance(const Ray &ray, int depth)
 
 inline vec3 MonteCarloRenderer::rayTraceBVH(const Ray &ray)
 {
-    return glm::sqrt(radiance(ray, 0));
+    return glm::sqrt(radiance(ray));
 }

@@ -8,7 +8,6 @@
 #include "Geometry.h"
 #include "Material.h"
 #include "Camera.h"
-#include "Light.h"
 
 class Scene
 {
@@ -16,7 +15,6 @@ public:
     std::vector<Geometry> geometry;
     std::vector<Material> material;
     std::vector<Camera> camera;
-    std::vector<Light> light;
     u32 activeCamera;
 
     Scene()

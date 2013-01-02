@@ -27,7 +27,6 @@ protected:
     virtual Hit rayTraceNode(const Ray &ray, u32 nodeIndex);
 	std::vector<BVHNode> nodes;
 	std::vector<Triangle> faces;
-	std::vector<Light> lights;
 	std::vector<u8> materials;
 	std::vector<Material> matLib;
 };

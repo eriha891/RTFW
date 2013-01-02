@@ -55,9 +55,6 @@ void RenderDevice::buildBVH(Scene *scene)
     materials.clear();
     matLib.clear();
     faces.clear();
-    lights.clear();
-
-    lights = scene->light;
 
     // create the bvh-structure
     {

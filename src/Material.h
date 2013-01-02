@@ -3,7 +3,6 @@
 #define MATERIAL_H
 
 #include "Types.h"
-#include "Texture.h"
 
 /**
  *  Material class
@@ -30,8 +29,6 @@ public:
         refractiveIndex = 1.0f;     // Som refractive index? Air ≈ 1.0?
         diffuseColor = vec3(0.5f);  // Grey color
 
-        for(int i=0; i<8; ++i)
-            texture[i] = NULL;
     }
 
     inline const vec3 &getDiffuseColor() { return diffuseColor; }
@@ -46,7 +43,6 @@ public:
     void setOpacity(f32 val) { opacity = glm::clamp(val,0.0f,1.0f); }
     void setRefractiveIndex(f32 val) { refractiveIndex = glm::clamp(val,0.0f,5.0f); }
     void setSpecularFactor(f32 val) { specularFactor = glm::clamp(val,0.0f,1.0f); }
-    void setTexture(u8 slot, Texture *tex) { if(slot<8) texture[slot] = tex; }
 };
 
 #endif

@@ -116,7 +116,7 @@ void initScene(Scene &scene)
     glass.setRefractiveIndex(GLASS);
 
 	// definition for the coolbox
-	loadObj(scene.geometry, "media/coolbox.obj", 0.01f);
+	loadObj(scene.geometry, "media/coolbox2.obj", 0.01f);
     scene.material.push_back(specularish);		// floor
     scene.material.push_back(matBlue);		// back wall
     scene.material.push_back(matGreen);		// left wall
@@ -127,7 +127,7 @@ void initScene(Scene &scene)
     scene.material.push_back(matGray);		// cylinder
     scene.material.push_back(matGray);		// teapot
     scene.material.push_back(matGray);		// box left
-    scene.material.push_back(glass);		// box right
+    scene.material.push_back(mirror);		// box wall
 
     // stanford bunny
     loadObj(scene.geometry, "media/bunny.obj", 0.02f);
@@ -139,7 +139,7 @@ void initScene(Scene &scene)
     scene.material.push_back(glass);
 
     Camera cam;
-    cam.position = vec3(0.04,0.6,1.9);
+    cam.position = vec3(0.04,0.6,1.95);
     cam.direction = vec3(0,0,-1);
     cam.up = vec3(0,1,0);
 
