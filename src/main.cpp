@@ -49,7 +49,7 @@ void *renderParallell( void *arg )
 	printf("Time to render 1 ray/pixel with SimpleRenderer: %f seconds\n", cpu_time);
 
     middle = clock();
-    mr.renderToArray(rt->scene, rt->pixels, WIDTH, HEIGHT, 5);
+    mr.renderToArray(rt->scene, rt->pixels, WIDTH, HEIGHT, 50);
 
     end = clock();
     cpu_time = static_cast<double>( end - middle ) / CLOCKS_PER_SEC;
@@ -104,6 +104,11 @@ void initScene(Scene &scene)
     matLight.setEmission(80.0,80.0,60.0);
     matLight.setEmission(160.0,160.0,160.0);
     matLight.setSpecularFactor(0.3);
+	
+    Material floorlamp;
+    floorlamp.setDiffuseColor(0.9,0.9,0.8);
+    floorlamp.setEmission(7.0,7.0,3.0);
+    floorlamp.setSpecularFactor(0.3);
 
     Material specularish;
     specularish.setDiffuseColor(0.9,0.9,0.1);
@@ -116,7 +121,7 @@ void initScene(Scene &scene)
     glass.setRefractiveIndex(GLASS);
 
 	// definition for the coolbox
-	loadObj(scene.geometry, "media/coolbox2.obj", 0.01f);
+	loadObj(scene.geometry, "media/coolbox3.obj", 0.01f);
     scene.material.push_back(specularish);		// floor
     scene.material.push_back(matBlue);		// back wall
     scene.material.push_back(matGreen);		// left wall
@@ -128,6 +133,8 @@ void initScene(Scene &scene)
     scene.material.push_back(matGray);		// teapot
     scene.material.push_back(matGray);		// box left
     scene.material.push_back(mirror);		// box wall
+    scene.material.push_back(floorlamp);		// lamp box
+    scene.material.push_back(floorlamp);		// lamp box
 
     // stanford bunny
     loadObj(scene.geometry, "media/bunny.obj", 0.02f);
