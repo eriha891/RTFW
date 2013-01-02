@@ -9,7 +9,7 @@
 class MonteCarloRenderer : public RenderDevice
 {
 private:
-    vec3 radiance(const Ray &ray);
+    vec3 radiance(const Ray &ray, int depth);
     vec3 rayTraceBVH(const Ray &ray);
 };
 

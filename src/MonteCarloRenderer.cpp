@@ -18,7 +18,7 @@ vec3 uncharted2Tonemap(const vec3 &x)
     return ((x*(A*x+C*B)+D*E)/(x*(A*x+B)+D*F))-E/F;
 }
 
-vec3 MonteCarloRenderer::radiance(const Ray &ray)
+vec3 MonteCarloRenderer::radiance(const Ray &ray, int depth)
 {
     vec3 rad;
 
@@ -40,30 +40,38 @@ vec3 MonteCarloRenderer::radiance(const Ray &ray)
 
         // check if the object is semi-transparent (guessing that no real object are perfect transparent)
         float opacity = material->getOpacity();
+
+        // make sure we have at least 4 bounces before there is a chance of termination
+        if ( depth < 4) {
+           limit = 1.0;
+        }
         
         if(r < limit)
         {
             if(inside) {
                 float snell = material->getRefractiveIndex() / AIR;
-                float neg = -1.0;
-                n = n*neg;
+                n = n*-1.0f;
                 vec3 origin;
                 vec3 newDirection;
+                f32 newRefractiveIndex;
 
-                float angle = acos(glm::dot(n, ray.direction * (float) -1.0));
-                float angle_lim = acos(ray.refractiveIndex/material->getRefractiveIndex());
+                float angle = acos(glm::dot(n, ray.direction * -1.0f));
+                float angle_lim = acos(snell);
+                origin = ray.origin + ray.direction*hit.distance;
                 if(angle > angle_lim) {
-					origin = ray.origin + ray.direction*hit.distance;
+                    newRefractiveIndex = material->getRefractiveIndex();
                     newDirection = glm::normalize(ray.direction - 2.0f * glm::dot(ray.direction,n) * n);
                 } else {
-					origin = ray.origin + ray.direction*hit.distance;
+                    newRefractiveIndex = AIR;
                     float thedot = glm::dot(n,ray.direction);
                     float factor = (snell * thedot - sqrt(1.0 - snell * snell *(1.0 - thedot*thedot)));
                     newDirection = glm::normalize(ray.direction*-snell + n * factor);
                 }
-                Ray extRay( origin, newDirection, material->getRefractiveIndex(), hit.index);
-                rad += material->getDiffuseColor()*radiance(extRay);  
+                Ray extRay( origin, newDirection, newRefractiveIndex, hit.index);
+                rad += material->getDiffuseColor()*radiance(extRay, depth +1);  
             } else {
+
+                // use the same r but normalize to be between 0->1
                 r = r / limit;
 
                 // calculate plane vectors
@@ -95,18 +103,16 @@ vec3 MonteCarloRenderer::radiance(const Ray &ray)
                     float thedot = glm::dot(n,ray.direction);
                     float factor = (snell * thedot - sqrt(1.0 - snell * snell *(1.0 - thedot*thedot)));
                     vec3 intDirection = glm::normalize(ray.direction*-snell + n * factor);
-                    //printf("hej hej");
                     Ray intRay(ray.origin + ray.direction*hit.distance, intDirection, material->getRefractiveIndex(), hit.index);
 
                     // calculate the totance emittance of this surface spot depending on tha opacity factor.
                     float invopacity = (1.0 - opacity);
                     if(opacity > 0.0)
-                        rad += material->getDiffuseColor()*radiance(extRay)*opacity;
-                    rad += material->getDiffuseColor()*radiance(intRay)*invopacity;
-					//rad = vec3(0,0,1);
+                        rad += material->getDiffuseColor()*radiance(extRay, depth +1)*opacity;
+                    rad += material->getDiffuseColor()*radiance(intRay, depth +1)*invopacity;
                     
                 } else {
-                    rad += material->getDiffuseColor()*radiance(extRay);   
+                    rad += material->getDiffuseColor()*radiance(extRay, depth +1);   
                 }
             }
         }
@@ -117,5 +123,5 @@ vec3 MonteCarloRenderer::radiance(const Ray &ray)
 
 inline vec3 MonteCarloRenderer::rayTraceBVH(const Ray &ray)
 {
-    return glm::sqrt(radiance(ray));
+    return glm::sqrt(radiance(ray,0));
 }
