@@ -49,7 +49,7 @@ void *renderParallell( void *arg )
 	printf("Time to render 1 ray/pixel with SimpleRenderer: %f seconds\n", cpu_time);
 
     middle = clock();
-    mr.renderToArray(rt->scene, rt->pixels, WIDTH, HEIGHT, 10);
+    mr.renderToArray(rt->scene, rt->pixels, WIDTH, HEIGHT, 15);
 
     end = clock();
     cpu_time = static_cast<double>( end - middle ) / CLOCKS_PER_SEC;
@@ -62,21 +62,9 @@ void *renderParallell( void *arg )
 
 void initScene(Scene &scene)
 {
-    //loadObj(scene.geometry, "media/bunny.obj", 8.0f);
-
-	/*
-	loadObj(scene.geometry, "media/golv_bakvagg_tak_lador.obj", 1.0f);
-    loadObj(scene.geometry, "media/gron_vagg.obj", 1.0f);
-    loadObj(scene.geometry, "media/rod_vagg.obj", 1.0f);
-    loadObj(scene.geometry, "media/lampa.obj", 1.0f);
-	*/
-
-
-    //std::cout<<"scene geoms "<<scene.geometry.size()<<std::endl;
 
     Material matWhite;
     matWhite.setDiffuseColor(0.9,0.9,0.9);
-    //matGray.setEmission(0.01,0.01,0.01);
 
     Material mirror;
     mirror.setDiffuseColor(1.0,1.0,1.0);
@@ -84,7 +72,6 @@ void initScene(Scene &scene)
 
     Material matGray;
     matGray.setDiffuseColor(0.5,0.5,0.5);
-    //matGray.setEmission(0.01,0.01,0.01);
 
     Material matBlue;
     matBlue.setDiffuseColor(0.1,0.1,0.9);
@@ -92,12 +79,10 @@ void initScene(Scene &scene)
     Material matGreen;
     matGreen.setDiffuseColor(0.1,0.8,0.1);
     matGreen.setSpecularFactor(0.3);
-    //matGreen.setEmission(0.01,0.01,0.01);
 
     Material matRed;
     matRed.setDiffuseColor(0.8,0.1,0.1);
     matRed.setSpecularFactor(0.3);
-    //matRed.setEmission(0.01,0.01,0.01);
 
     Material matLight;
     matLight.setDiffuseColor(0.9,0.9,0.8);
@@ -164,29 +149,6 @@ void initScene(Scene &scene)
 int main(int argc, char ** argv) {
 
 
-	/*
-    int th_id, nthreads;
-    #pragma omp parallel private(th_id) shared(nthreads)
-    {
-      th_id = omp_get_thread_num();
-      #pragma omp critical
-      {
-		  //cout << "Hello World from thread " << th_id << '\n';
-		  printf("Hello World from thread %i\n", th_id);
-
-	}
-	#pragma omp barrier
-
-      #pragma omp master
-      {
-        nthreads = omp_get_num_threads();
-        //cout << "There are " << nthreads << " threads" << '\n';
-		printf("There are %i threads\n", nthreads);
-
-      }
-    }
-	*/
-
 	glfwInit();
 
 	// GLFW_WINDOW
@@ -208,15 +170,7 @@ int main(int argc, char ** argv) {
     rt.scene = &scene;
     rt.pixels = pixels;
     renderParallell((void*)&rt);
-    /*
-	pthread_t thread;
-	int rc = pthread_create(&thread, NULL, renderParallell, (void*)&rt);
-	if (rc)
-	{
-        printf("ERROR; return code from pthread_create() is %d\n", rc);
-        return 0;
-    }
-*/
+
     // ray tracing is already done
     bool quitProgram = false;
 	while(!quitProgram) {
